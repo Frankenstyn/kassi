@@ -6,7 +6,6 @@ test_community:
   settings: <%= {
      "locales" => ["en", "fi"],
      "asi_welcome_mail" => true}.to_yaml.inspect %>
-  real_name_required: 1
 
 test_community2:
   id: 2
@@ -14,4 +13,3 @@ test_community2:
   domain: "test2"
   settings: <%= {
      "locales" => ["en"]}.to_yaml.inspect %>
-  real_name_required: 0

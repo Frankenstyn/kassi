@@ -16,7 +16,6 @@ class PeopleController < ApplicationController
   end
   
   def show
-    @community_membership = CommunityMembership.find_by_person_id_and_community_id(@person.id, @current_community.id)
     @listings = params[:type] && params[:type].eql?("requests") ? @person.requests : @person.offers
     @listings = show_closed? ? @listings : @listings.open 
     @listings = @listings.visible_to(@current_user, @current_community).order("open DESC, id DESC").paginate(:per_page => 15, :page => params[:page])
@@ -28,6 +27,51 @@ class PeopleController < ApplicationController
   end
 
   def create
+    @username = params[:person][:username]
+    @given_name = params[:person][:given_name]
+    @family_name = params[:person][:family_name]    
+    @email = params[:person][:email]
+    @password = params[:person][:password]
+    @password2 = params[:person][:password2]
+    
+    unless Person.username_available?(params[:person][:username]) 
+      flash[:error] = "Username not available"
+      render :action => 'new'
+      return
+    end
+      
+    unless Person.email_available?(params[:person][:email]) 
+      flash[:error] = "Email already in use"
+      render :action => 'new'
+      return
+    else
+      unless isvalidemail(params[:person][:email])
+        flash[:error] = "Invalid email"
+        render :action => 'new'
+        return
+      end
+    end
+    
+    @password = params[:person][:password]
+    if params[:person][:password].length < 4
+      flash[:error] = "Password must be at least 4 characters"
+      render :action => 'new'
+      return
+    end
+    
+    @password2 = params[:person][:password2]
+    unless params[:person][:password] == params[:person][:password2]
+      flash[:error] = "Passwords do not match"
+      render :action => 'new'
+      return
+    end
+    
+    unless params[:person][:terms] == "on"
+      flash[:error] = "You must accept the terms"
+      render :action => 'new'
+      return
+    end
+    
     # if the request came from different domain, redirects back there.
     # e.g. if using login-subdoain for registering in with https    
     if params["community"].blank?
@@ -70,7 +114,7 @@ class PeopleController < ApplicationController
       redirect_to domain + sign_up_path and return#{}"/#{I18n.locale}/signup"
     end
     session[:person_id] = @person.id
-    flash[:notice] = [:login_successful, (@person.given_name_or_username + "!").to_s, person_path(@person)]
+    flash[:notice] = [:login_successful, (@person.given_name + "!").to_s, person_path(@person)]
     PersonMailer.new_member_notification(@person, params[:community], params[:person][:email]).deliver if @current_community.email_admins_about_new_members
     redirect_to (session[:return_to].present? ? domain + session[:return_to]: domain + root_path)
   end
@@ -147,4 +191,17 @@ class PeopleController < ApplicationController
     
   end
   
+  #Franklin Ochieng added the lines of code below
+  
+  def isvalidemail(email)
+    unless email.blank?
+      unless email =~ /^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$/
+        return false
+      else
+        return true
+      end
+    else
+      return false
+    end
+  end
 end

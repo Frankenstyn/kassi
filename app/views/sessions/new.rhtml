@@ -1,0 +1,27 @@
+<div id="form">
+  <h2>Log in to Kassi</h2>
+  <form accept-charset="UTF-8" action="/en/sessions" method="post">
+    <div style="margin:0;padding:0;display:inline">
+      <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+    </div>
+    <div>
+      <label for="username">Username</label>
+      <input class="text_field" id="username" name="username" type="text"/>
+    </div>
+    <div>
+      <label for="password">Password</label>
+      <input class="text_field" id="password" name="password" type="password"/>
+    </div>
+    <div>
+      <%= hidden_field_tag :community, @current_community.domain %>
+      <input class="send_button" name="commit" type="submit" value="Log in"/>
+    </div>
+    <div>
+      <div class="links">
+        <a href="/en/signup">Create account</a>
+        <span class="big"> | </span>
+        <a href="/en/sessions/request_new_password">Forgot password</a>
+      </div>
+    </div>
+  </form>
+</div>

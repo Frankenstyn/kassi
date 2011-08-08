@@ -81,7 +81,6 @@ end
 after "deploy:update_code" do
   deploy.symlinks_to_shared_path
   whenever.update_crontab
-  run("cd #{release_path} && /usr/bin/env #{rake} i18n:write_error_pages RAILS_ENV=production")
 end
 
 after "deploy:update" do

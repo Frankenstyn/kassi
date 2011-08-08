@@ -93,16 +93,10 @@ class ListingsController < ApplicationController
   
   def close
     @listing.update_attribute(:open, false)
-    notice = "#{@listing.listing_type}_closed"
+    flash.now[:notice] = "#{@listing.listing_type}_closed"
     respond_to do |format|
-      format.html { 
-        flash[:notice] = notice
-        redirect_to @listing 
-      }
-      format.js {
-        flash.now[:notice] = notice
-        render :layout => false 
-      }
+      format.html { redirect_to @listing }
+      format.js { render :layout => false }
     end
   end
   
@@ -121,7 +115,7 @@ class ListingsController < ApplicationController
   
   def ensure_current_user_is_listing_author(error_message)
     @listing = Listing.find(params[:id])
-    return if current_user?(@listing.author) || @current_user.has_admin_rights_in?(@current_community)
+    return if current_user?(@listing.author) || @current_user.is_admin?
     flash[:error] = error_message
     redirect_to @listing and return
   end

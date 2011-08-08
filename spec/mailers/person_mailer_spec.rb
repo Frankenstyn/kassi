@@ -94,28 +94,11 @@ describe PersonMailer do
     assert_equal APP_CONFIG.feedback_mailer_recipients.split(", "), email.to
   end
   
-  it "should send email to community admins of new feedback if that setting is on" do
-    @feedback = Factory(:feedback)
-    @community = Factory(:community, :feedback_to_admin => 1)
-    CommunityMembership.create(:person_id => @test_person.id, :community_id => @community.id, :admin => 1)
-    email = PersonMailer.new_feedback(@feedback, @community).deliver
-    assert !ActionMailer::Base.deliveries.empty?
-    assert_equal [@test_person.email], email.to
-  end
-  
   it "should send email to admins of new contact request" do
     @contact_request = Factory(:contact_request)
     email = PersonMailer.contact_request_notification(@contact_request).deliver
     assert !ActionMailer::Base.deliveries.empty?
     assert_equal APP_CONFIG.feedback_mailer_recipients.split(", "), email.to
-  end
-  
-  it "should send email to the contact request receiver" do
-    @contact_request = Factory(:contact_request)
-    email = PersonMailer.reply_to_contact_request(@contact_request.email, "en").deliver
-    assert !ActionMailer::Base.deliveries.empty?
-    assert_equal [@contact_request.email], email.to
-    assert_equal "Thank you for your interest in Kassi!", email.subject
   end
   
   it "should send email to community admins of new member if wanted" do

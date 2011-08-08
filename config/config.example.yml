@@ -36,7 +36,7 @@ default: &default_settings
   # If you make new translations, please share those for example in Github.
   # If you change the default locale, you should put that one first in the list of available_locations, to get
   # the language dropdown menu work more logically.
-  available_locales: [["English", "en"], ["Suomi", "fi"], ["Pусский", "ru"]]
+  available_locales: [["English", "en"], ["Finnish", "fi"], ["Russian", "ru"]]
   
   # reCAPTChA is used to avoid bots registering accounts
   # You need to register your domain at https://www.google.com/recaptcha
@@ -118,13 +118,6 @@ production:
 
 development:
   <<: *default_settings
-  
-  # These settings are used for sending email from your local computer.
-  # This example is using gmail SMTP, but you can also use your local SMTP server.
-  local_email_address: "smtp.gmail.com"
-  local_email_port: 587
-  local_email_user_name: "<YOUR_GMAIL_USERNAME>@gmail.com"
-  local_email_password: "<YOUR_GMAIL_PASSWORD>"
   
 test:
   <<: *default_settings

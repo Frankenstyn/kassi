@@ -1,0 +1,48 @@
+<div class="form">
+  <h2>Create account</h2>
+  <form method="post" action="/en/people" accept-charset="UTF-8">
+    <div style="margin:0;padding:0;display:inline">
+      <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+    </div>
+    <% unless flash[:error].blank? %>
+      <div class="errors"><%= flash[:error] %></div>
+    <% end %>
+    <div>
+      <label for="person_username">Username:</label>
+      <input type="text" value="<%=  @username %>" size="20" name="person[username]" maxlength="20">
+    </div>
+    <div>
+      <label for="person_given_name">Given name:</label>
+      <input type="text" value="<%=  @given_name %>" size="30" name="person[given_name]" maxlength="30">
+    </div>
+    <div>
+      <label for="person_family_name">Family name:</label>
+      <input type="text" value="<%=  @family_name %>" size="30" name="person[family_name]" maxlength="30">
+    </div>
+    <div>
+      <label for="person_email">Email address:</label>
+      <input type="text" value="<%=  @email %>" size="30" name="person[email]" maxlenght="255">
+    </div>
+    <div>
+      <label for="person_password">Password:</label>
+      <input type="password" value="<%=  @password %>" size="255" name="person[password]" maxlength="255">
+    </div>
+    <div>
+      <label for="person_password2">Confirm password:</label>
+      <input type="password" value="<%=  @password2 %>" size="255" name="person[password2]" maxlength="255">
+    </div>
+    <div>
+      <div>
+        <div>
+          <span><input type="checkbox" style="opacity: 50;" name="person[terms]"></span>
+          <label for="person_terms">I accept the <a href="#">terms of use</a></label>
+        </div>
+      </div>
+    </div>
+    <div>
+      <%= hidden_field_tag :consent, :value => @current_community.consent %>
+      <%= hidden_field_tag :community, @current_community.domain %>
+      <input type="submit" value="Create" name="commit" class="send_button">
+    </div>
+  </form>
+</div>

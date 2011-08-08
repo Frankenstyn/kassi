@@ -67,10 +67,10 @@ class Conversation < ActiveRecord::Base
   end
   
   # Send email notification to message receivers and returns the receivers
-  def send_email_to_participants(host)
+  def send_email_to_participants(request)
     recipients(messages.last.sender).each do |recipient|
       if recipient.preferences["email_about_new_messages"]
-        PersonMailer.new_message_notification(messages.last, host).deliver
+        PersonMailer.new_message_notification(messages.last, request.host).deliver
       end  
     end
   end

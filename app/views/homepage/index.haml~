@@ -1,0 +1,65 @@
+<div id="recent_listings" class="grid_18">
+          <div id="recent_requests" class="grid_9 alpha">
+            <div class="recent_listings">
+              <h3 class="orange">
+                <a href="/en/requests">What others need</a>
+              </h3>
+              <div class="blank_slate">
+                <div class="blank_slate_header">
+                  No item, favor or rideshare requests visible to non-logged-in users.
+                  <a href="/en/signup">Create yourself a new account</a>
+                  or
+                  <a href="/en/login">log in!</a>
+                </div>
+                <div class="blank_slate_suggestions">
+                  <h3>What could you request from the others</h3>
+                  <p>
+                    <b>Goods to borrow:</b>
+                    tools, sports equipment, costumes, camping equipment
+                  </p>
+                  <p>
+                    <b>Help:</b>
+                    babysitting, piano lessons, walking dogs, mowing lawn
+                  </p>
+                  <p>
+                    <b>A ride to work</b>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="recent_offers" class="grid_9 omega">
+            <div class="recent_listings">
+              <h3 class="brown">
+                <a href="/en/offers">What others can offer</a>
+              </h3>
+              <div class="blank_slate">
+                <div class="blank_slate_header">
+                  No item, favor or rideshare offers visible to non-logged-in users.
+                  <a href="/en/signup">Create yourself a new account</a>
+                  or
+                  <a href="/en/login">log in!</a>
+                </div>
+                <div class="blank_slate_suggestions">
+                  <h3>What could you offer to the others</h3>
+                  <p>
+                    <b>Goods to lend:</b>
+                    tools, sports equipment, costumes, camping equipment
+                  </p>
+                  <p>
+                    <b>Help:</b>
+                    computer assistance, clothes repair, baking, bike fixing
+                  </p>
+                  <p>
+                    <b>Take others' kids to their hobbies</b>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <script type="text/javascript">
+          //&lt;![CDATA[
+          $('#recent_listings').pageless({"div1":"#recent_requests","url":"/?locale=en","div2":"#recent_offers","split_string":"&lt;!--SPLIT_req-off--&gt;","totalPages":0,"loaderMsg":"Loading more content"});
+          //]]&gt;
+          </script><div style="display: none; text-align: center; width: 100%;" class="grid_9" id="pageless-loader">  <div style="color: rgb(187, 187, 187); font-size: 2em;" class="msg">Loading more content</div>  <img style="margin: 10px auto;" alt="loading more results" title="load" src="/images/load.gif"></div>
+        </div>

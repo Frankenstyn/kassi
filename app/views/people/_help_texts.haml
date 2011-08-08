@@ -1,9 +1,8 @@
 %div{:id => field, :class => help_text_class(field)}
-  - if field.eql?("terms")
-    .hidden_title_wide
+  .hidden_title_wide
+    - if field.eql?("terms")
       = render :file => community_file("terms_title", false)
-  - else
-    .hidden_title
+    - else
       = t(".#{field}_title")
   .close_link
     = link_to "X", "#", :id => "close_x", :class => "close"
