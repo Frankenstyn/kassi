@@ -31,26 +31,30 @@ class Listing < ActiveRecord::Base
   
   scope :requests, :conditions => { :listing_type => 'request' }, :include => [ :listing_images, :share_types ], :order => "listings.created_at DESC"
   scope :offers, :conditions => { :listing_type => 'offer' }, :include => [ :listing_images, :share_types ], :order => "listings.created_at DESC"
-  scope :rideshare, :conditions => { :category => "rideshare"}
+  scope :housing, :conditions => { :category => "housing"}
   
   scope :open, :conditions => ["open = '1' AND (valid_until IS NULL OR valid_until > ?)", DateTime.now]
   scope :public, :conditions  => "visibility = 'everybody'"
   scope :private, :conditions  => "visibility <> 'everybody'"
   
   VALID_TYPES = ["offer", "request"]
-  VALID_CATEGORIES = ["item", "favor", "rideshare", "housing"]
-  VALID_SHARE_TYPES = {
+  VALID_CATEGORIES = ["housing", "phones", "computer", "services", "entertainment", "other"]
+  VALID_SUBCATEGORIES = {
     "offer" => {
-      "item" => ["lend", "sell", "rent_out", "trade", "give_away"],
-      "favor" => nil, 
-      "rideshare" => nil,
-      "housing" => ["rent_out", "sell", "temporary_accommodation"]
+      "housing" => ["rental", "for sale", "hostel", "pirate", "other"],
+      "phones" => ["nokia", "samsung", "huawei", "blackberry", "sony ericsson", "other"], 
+      "computer" => ["desktops", "laptops", "software", "accessories"],
+      "services" => ["software development", "repairs", "assignments", "other"],
+      "entertainment" => ["movies", "music", "games", "other"],
+      "other" => nil,
     },
     "request" => {
-      "item" => ["borrow", "buy", "rent", "trade"],
-      "favor" => nil, 
-      "rideshare" => nil,
-      "housing" => ["rent", "buy", "temporary_accommodation"],
+      "housing" => ["rental", "for sale", "hostel", "pirate", "other"],
+      "phones" => ["nokia", "samsung", "huawei", "blackberry", "sony ericsson", "other"], 
+      "computer" => ["desktops", "laptops", "software", "accessories"],
+      "services" => ["software development", "repairs", "assignments", "other"],
+      "entertainment" => ["movies", "music", "games", "other"],
+      "other" => nil,
     }
   }
   VALID_VISIBILITIES = ["everybody", "this_community"]
@@ -185,7 +189,7 @@ class Listing < ActiveRecord::Base
   end
   
   def default_share_type?(share_type)
-    share_type.eql?(Listing::VALID_SHARE_TYPES[listing_type][category].first)
+    share_type.eql?(Listing::VALID_SUBCATEGORIES[listing_type][category].first)
   end
   
   def given_share_type_is_one_of_valid_share_types
@@ -195,7 +199,7 @@ class Listing < ActiveRecord::Base
       errors.add(:share_types, errors.generate_message(:share_types, :blank)) 
     elsif listing_type && category && VALID_TYPES.include?(listing_type) && VALID_CATEGORIES.include?(category)
       share_types.each do |test_type|
-        unless VALID_SHARE_TYPES[listing_type][category].include?(test_type.name)
+        unless VALID_SUBCATEGORIES[listing_type][category].include?(test_type.name)
           errors.add(:share_types, errors.generate_message(:share_types, :inclusion))
         end   
       end
@@ -205,8 +209,8 @@ class Listing < ActiveRecord::Base
   def self.unique_share_types(listing_type)
     share_types = []
     VALID_CATEGORIES.each do |category|
-      if VALID_SHARE_TYPES[listing_type][category] 
-        VALID_SHARE_TYPES[listing_type][category].each do |share_type|
+      if VALID_SUBCATEGORIES[listing_type][category] 
+        VALID_SUBCATEGORIES[listing_type][category].each do |share_type|
           share_types << share_type
         end
       end  
@@ -302,9 +306,9 @@ class Listing < ActiveRecord::Base
     
     potential_listings = []
     if listing_type == "request"
-      potential_listings =  Listing.open.rideshare.offers
+      potential_listings =  Listing.open.housing.offers
     else
-      potential_listings = Listing.open.rideshare.requests
+      potential_listings = Listing.open.housing.requests
     end
     
     potential_listings.each do |candidate|
@@ -411,5 +415,4 @@ class Listing < ActiveRecord::Base
       SmsHelper.send(message, request.author.phone_number)
     end
   end
-  
 end

@@ -1,0 +1,5 @@
+<% if @listing.closed? %><%= @listing.listing_type + " closed" %>
+<% elsif !current_user?(@listing.author) %>
+<%= link_to image_tag("/images/icons/request_icon.png", :alt => @listing.title), reply_to_listing_path(:id => @listing.id.to_s) %>
+<%= link_to "Link label", reply_to_listing_path(:id => @listing.id.to_s) %>
+<% end %>

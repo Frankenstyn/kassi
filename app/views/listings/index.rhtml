@@ -1,0 +1,18 @@
+<% unless logged_in? %><a class="button" href="/<%= I18n.locale  %>/signup">Sign up</a> | <a class="button" href="/<%= I18n.locale  %>/login">Log in</a><% end %></p>
+<div class="description">Select a category to view the corresponding <%= @title %>s or select <%= image_tag("new.png", :alt => "New", :width => "10", :heigth => "10") %> to add new <%= @title %></div>
+<br/><div class="title"><%= @title.upcase + "S" %></div><hr class="titlebar"/>
+<table class="vertical-image" style="width: 100%">
+<tr><th><%= link_to image_tag("house.jpeg", :alt => "Accomodation"), :controller => "listings", :action => "load", :category => ["housing"], :listing_type => @title, :share_type => ["all"] %></th><th>&nbsp;&nbsp;</th>
+<th><%= link_to image_tag("phone.jpg", :alt => "Phones"), :controller => "listings", :action => "load", :category => ["phones"], :listing_type => @title, :share_type => ["all"] %></th></tr>  
+<tr><td>Accomodation<%= link_to image_tag("new.png", :alt => "New"), { :controller => "listings", :action => "new", :category => "housing", :type => @title }, :class => "icon" %></td><td>&nbsp;&nbsp;</td>
+<td>Phones<%= link_to image_tag("new.png", :alt => "New"), { :controller => "listings", :action => "new", :category => "phones", :type => @title }, :class => "icon" %></td></tr>
+<tr><th><%= link_to image_tag("entertainment.png", :alt => "Entertainment"), :controller => "listings", :action => "load", :category => ["entertainment"], :listing_type => @title, :share_type => ["all"] %></th><th>&nbsp;&nbsp;</th>
+<th><%= link_to image_tag("services.png", :alt => "Services"), :controller => "listings", :action => "load", :category => ["services"], :listing_type => @title, :share_type => ["all"] %></th></tr>
+<tr><td>Entertainment<%= link_to image_tag("new.png", :alt => "New"), { :controller => "listings", :action => "new", :category => "entertainment", :type => @title }, :class => "icon" %></td><td>&nbsp;&nbsp;</td>
+<td>Services<%= link_to image_tag("new.png", :alt => "New"), { :controller => "listings", :action => "new", :category => "services", :type => @title }, :class => "icon" %></td></tr>
+<tr><th><%= link_to image_tag("computers.png", :alt => "Computer Stuff"), :controller => "listings", :action => "load", :category => ["computer"], :listing_type => @title, :share_type => ["all"] %></th><th>&nbsp;&nbsp;</th>
+<th><%= link_to image_tag("other.png", :alt => "Other"), :controller => "listings", :action => "load", :category => ["other"], :listing_type => @title, :share_type => ["all"] %></th></tr>
+<tr><td>Computer Stuff<%= link_to image_tag("new.png", :alt => "New"), { :controller => "listings", :action => "new", :category => "computer", :type => @title }, :class => "icon" %></td><td>&nbsp;&nbsp;</td>
+<td>Other<%= link_to image_tag("new.png", :alt => "New"), { :controller => "listings", :action => "new", :category => "other", :type => @title }, :class => "icon" %></td></tr>
+</table><br/>
+<% unless logged_in? %><a class="button" href="/<%= I18n.locale  %>/signup">Sign up</a> | <a class="button" href="/<%= I18n.locale  %>/login">Log in</a><% end %>

@@ -1,0 +1,14 @@
+<table class="profile-image">
+  <tr>
+    <th><%= image_tag(APP_CONFIG.asi_url + "/people/" + @person.id + "/@avatar/small_thumbnail", :width => 100, :height => 100, :alt => "Avatar") %></th>
+    <td class="left"><h2><%= @person.name %></h2><div class="meta"><% if logged_in? %><%=@person.phone_number %><% end %></div>
+    </td>
+  </tr>
+</table><br/>
+<label style="font-weight: bolder; font-size: larger">Address: </label><% if logged_in? %><%= " " + @person.unstructured_address %><% end %><br/><br/>
+<% if(@more.blank?) %>
+<label style="font-weight: bolder; font-size: larger">About me: </label><br/><%= truncate(@person.description, :length => 100, :omission => "...") %>
+<% if @person.description && @person.description.length > 100 %><%= link_to " Read more", :controller => "people", :action => "show", :more => "true" %><% end %><br/><br/>
+<% if current_user?(@person) %><%=  link_to "Edit Profile", profile_person_settings_path(:person_id => @current_user.id.to_s), :class => "button" %><% end %>
+<% else %><label style="font-weight: bolder; font-size: larger">About me: </label><br/><%= @person.description %><br/><br/>
+<% if current_user?(@person) %><%=  link_to "Edit Profile", profile_person_settings_path(:person_id => @current_user.id.to_s), :class => "button" %><% end %><% end %>

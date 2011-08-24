@@ -1,5 +1,5 @@
 class ListingsController < ApplicationController
-
+  
   before_filter :save_current_path, :only => :show
   before_filter :ensure_authorized_to_view, :only => :show
 
@@ -39,15 +39,18 @@ class ListingsController < ApplicationController
   # How the results are rendered depends on 
   # the type of request and if @to_render is set
   def load
+    #print(params)
     @title = params[:listing_type]
-    @to_render ||= {:partial => "listings/listed_listings"}
-    @listings = Listing.open.order("created_at DESC").find_with(params, @current_user, @current_community).paginate(:per_page => 15, :page => params[:page])
-    @request_path = request.fullpath
-    if request.xhr? && params[:page] && params[:page].to_i > 1
-      render :partial => "listings/additional_listings"
-    else
-      render @to_render
-    end
+    @to_render ||= "load"
+    @listings = Listing.open.order("created_at DESC").find_with(params, @current_user, @current_community).paginate(:per_page => 5, :page => params[:page])
+    render @to_render
+#    @request_path = request.fullpath
+#
+#    if request.xhr? && params[:page] && params[:page].to_i > 1
+#      render :partial => "listings/additional_listings"
+#    else
+#      render @to_render
+#    end
   end
   
   def show
@@ -57,7 +60,7 @@ class ListingsController < ApplicationController
   def new
     @listing = Listing.new
     @listing.listing_type = params[:type]
-    @listing.category = params[:category] || "item"
+    @listing.category = params[:category] || "housing"
     1.times { @listing.listing_images.build }
     respond_to do |format|
       format.html
@@ -66,6 +69,19 @@ class ListingsController < ApplicationController
   end
   
   def create
+    @form_title = params[:listing][:title]
+    @form_description = params[:listing][:description]
+    
+    if @form_title.blank?
+      flash[:error] = "Title field is required"
+      redirect_to :back
+      return
+    elsif @form_title.length < 2
+      flash[:error] = "Title field is too short"
+      redirect_to :back
+      return
+    end
+    
     @listing = @current_user.create_listing params[:listing]
     if @listing.new_record?
       1.times { @listing.listing_images.build } if @listing.listing_images.empty?
@@ -79,6 +95,7 @@ class ListingsController < ApplicationController
   end
   
   def edit
+    @subcategory = ShareType.find_by_listing_id @listing.id   
     1.times { @listing.listing_images.build } if @listing.listing_images.empty?
   end
   
@@ -137,6 +154,10 @@ class ListingsController < ApplicationController
         redirect_to new_session_path and return
       end
     end
+  end
+  
+  def showimage
+    
   end
 
 end

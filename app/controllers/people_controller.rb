@@ -16,6 +16,7 @@ class PeopleController < ApplicationController
   end
   
   def show
+    @more = params[:more]
     @listings = params[:type] && params[:type].eql?("requests") ? @person.requests : @person.offers
     @listings = show_closed? ? @listings : @listings.open 
     @listings = @listings.visible_to(@current_user, @current_community).order("open DESC, id DESC").paginate(:per_page => 15, :page => params[:page])
@@ -120,6 +121,19 @@ class PeopleController < ApplicationController
   end
   
   def update
+    @username=params[:person][:username]
+    @given_name=params[:person][:given_name]
+    @family_name=params[:person][:family_name]
+    @street_address=params[:person][:street_address]
+    @postal_code=params[:person][:postal_code]
+    @locality=params[:person][:locality]
+    @phone_number=params[:person][:phone_number]
+    @about_you=params[:person][:about_you]
+    @email=params[:person][:email]
+    @preferences=params[:person][:preferences]
+    @password = params[:person][:password]
+    @password2 = params[:person][:password2]
+
     begin
       @person.update_attributes(params[:person], session[:cookie])
       flash[:notice] = :person_updated_successfully
@@ -203,5 +217,9 @@ class PeopleController < ApplicationController
     else
       return false
     end
+  end
+  
+  def readmore
+
   end
 end

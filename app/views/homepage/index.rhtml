@@ -1,229 +1,46 @@
-<div id="notification_container">
-
-</div>
-<div id="main" class="container_24">
-<div id="teaser">
-<div id="teaser_left">
-<img src="images/kassi_logo.png" width="30px" height="30px" alt="Kassi_logo" class="image" />
-<b><font color="368e1b" align="justify" size="3px">Welcome to Kassi</font></b>
-<p>
-Kassi is a service for the community. Here you can lend, rent, buy and sell stuff.
-</p>
-</div>
-
-
-</div>
-
-
-
-	<div class="content">
-	<table class="vertical-image">
-		<tr><th><a href="/forums"><img alt="Online forums" src="images/house.jpeg"width="40px" height="40px"  /></a></th><td><h1>Accomodation</h1></td></tr>
-		<tr><td class="entry" colspan="2">Find accomodation!<br /></td></tr>
-		<tr><th><a href="/forums"><img alt="Online forums" src="images/books.jpeg"width="40px" height="40px"  /></a></th><td><h1>Books</h1></td></tr>
-		<tr><td class="entry" colspan="2">Books and reading material<br /></td></tr>
-	</table>
-	<div class="tips"><p><a href="/login">Login</a> with a single username and password to use all services.</p><p>Don't have an account? <a href="/sign-up">Sign up</a> to get instant access to the services. It's absolutely <b>FREE!!</b></p></div>
-
-	</div>
-
-
-
-<ul class="tabs">
-<li class="active"><a href="">Niaje</a></li>
-<li><a href="">Poa</a></li>
-</ul>
-
-
-
-
-	<fieldset>
-
-		<b><font color="368e1b" align="justify" size="4px">MAIN CATEGORIES</font></b>
-		<hr/>
-		<a title="Kassi" href="http://nairobi.kassi.local:3003/">
-			<img src="images/house.jpeg" width="40px" height="40px" alt="housing" class="image" />
-			<b><font color="410000" align="justify" size="3px">Housing</font></b>
-			<br />	
-		</a>
-		Find accomodation
-		<br />
-		
-		<a title="Kassi" href="http://nairobi.kassi.local:3003/">
-			<img src="images/books.jpeg" width="40px" height="40px" alt="an image" class="image" />
-			<b><font color="410000" align="justify" size="3px">Books</font></b>
-			<br />	
-		</a>
-		Books and reading material
-		<br />
-		
-		<a title="Kassi" href="http://nairobi.kassi.local:3003/">
-			<img src="images/clothing.jpeg" width="40px" height="40px" alt="an image" class="image" />
-			<b><font color="410000" align="justify" size="3px">Clothing</font></b>
-			<br />	
-		</a>
-		Clothing and ornaments
-		<br />
-		
-		<a title="Kassi" href="http://nairobi.kassi.local:3003/">
-			<img src="images/IT.jpeg" width="40px" height="40px" alt="an image" class="image" />
-			<b><font color="410000" align="justify" size="3px">Computer stuff</font></b>
-			<br />	
-		</a>
-		IT hardware, software and accesories
-		<br />
-		
-		<a title="Kassi" href="http://nairobi.kassi.local:3003/">
-			<img src="images/clothing.jpeg" width="40px" height="40px" alt="an image" class="image" />
-			<b><font color="410000" align="justify" size="3px">Other</font></b>
-			<br />	
-		</a>
-		Cl
-		<br />
-
-	</fieldset>
-	
-
-	
-	
-	
-	
-	
-	
-	
-<div id="teaser_right">
-	<div id="teaser_button_container">
-		<div id="offer_something_button">
-		<a href="/en/listings/new/offer">New offer</a>
-		</div>	
-	</div>
-	<div id="teaser_button_container">
-	<div id="request_something_button">
-	<a href="/en/listings/new/request">New request!</a>
-	</div>
-	</div>
-	<div id="teaser_browse_links">
-	<p>
-	...or see what the others
-	<a href="/en/offers">Offers</a>
-	or
-	<a href="/en/requests">Requests</a>
-	</p>
-	</div>
-</div>
-	
-	
-	
-	
-	
-	
-	
-	
-
-
-
-<div id="recent_listings" class="grid_18">
-<div id="recent_requests" class="grid_9 alpha">
-<div class="recent_listings">
-<h3 class="orange">
-<a href="/en/requests">Requests</a>
-</h3>
-<div class="blank_slate">
-
-<div class="blank_slate_suggestions">
-</div>
-</div>
-</div>
-</div>
-
-
-<div id="recent_offers" class="grid_9 omega">
-	<div class="recent_listings">
-	<h3 class="brown">
-	<a href="/en/offers">Offers</a>
-	</h3>
-	
-	</div>
-	</div>
-	
-	
-	
-	
-	
-	
-<div class="grid_12">
-          <div id="logged_in_icon_container" class="grid_4 prefix_3 alpha">
-            <div id="logged_in_icons">
-              <div id="logged_in_messages_icon">
-                <div class="logged_in_icon_inbox">
-                  <a title="Messages" href="/en/people/bBtQuqUper4lkPIk4DIpdk/messages/received">
-                    <span class="not_visible">
-                      Messages
-                    </span>
-                  </a>
-                </div>
-              </div>
-              <div id="logged_in_notifications_icon">
-                <div class="logged_in_icon_notifications">
-                  <a title="Notifications" id="notifications_link" href="/en/people/bBtQuqUper4lkPIk4DIpdk/messages/notifications">
-                    <span class="not_visible">
-                     Notifications
-                    </span>
-                  </a>
-                </div>
-              </div>
-              <div class="logged_in_icon_settings">
-                <a title="Settings" href="/en/people/bBtQuqUper4lkPIk4DIpdk/settings">
-                  <span class="not_visible">
-                    Settings
-                  </span>
-                </a>
-              </div>
+<div style="margin-top: -25px"><% if logged_in? %><h2>Hi <%= link_to @current_user.given_name_or_username, @current_user %></h2>
+    <p class="hint">Welcome to Kassi. Make a new request for something you need or let others know what you can offer by going to the appropriate tab.</p><% else %>
+    <p class="hint">Welcome to Kassi. Kassi is a service for the community. Here, you can lend, rend, or buy goods/services.
+    <% end %>
+    <% unless logged_in? %>New user? <a href="/<%= I18n.locale  %>/signup">Sign up</a> otherwise <a href="/<%= I18n.locale  %>/login">Log in.</a><% end %></p>
+</div><div style="width: 100%"><div class="title">LISTINGS</div><hr class="titlebar"/>
+  <% if logged_in? %>
+  <% else %><a href="/<%= I18n.locale  %>/signup" class="button">Sign up</a> | <a class="button" href="/<%= I18n.locale  %>/login">Log in</a><% end %>
+  <table class="listings_table" style="width: 100%">
+    <tr><th>
+      <div class="recent_listings">
+        <p class="title">REQUESTS</p>
+        <% if @requests.total_entries > 0%>
+          <%= render :partial => "recent_listing", :collection => @requests, :as => :listing, :spacer_template => "request_spacer" %>
+          <%- if @requests.total_pages < 2 && @private_listings && @private_listings["request"].present? && @private_listings["request"] > 0 %>
+            <br/>
+            <div>
+              <%= render :partial => "additional_private_listings_slate",  :locals => {:listing_type => "request", :private_listings_count =>  @private_listings["request"]} %>
             </div>
-          </div>
-          <div class="grid_5 omega">
-            <div id="logged_in_links">
-              <a title="Profile" id="profile" class="left" href="/en/people/bBtQuqUper4lkPIk4DIpdk">User's name</a>
-              <a href="/en/logout">Logout</a>
+          <% end %>
+        <% else %>
+          <p>No requests</p>
+        <%end%>
+      </div>
+    </th>
+    <th>
+      <div class="recent_listings">
+        <p class="title">OFFERS</p>
+        <%- if @offers.total_entries > 0%>
+          <%= render :partial => "recent_listing", :collection => @offers, :as => :listing, :spacer_template => "offer_spacer" %>
+          <%- if @offers.total_pages < 2 && @private_listings && @private_listings["offer"].present? && @private_listings["offer"] > 0 %>
+            <div>
+              <%= render :partial => "additional_private_listings_slate",  :locals => {:listing_type => "offer", :private_listings_count =>  @private_listings["offer"]} %>
             </div>
-          </div>
-          <div class="clear"></div>
-          <div class="tabs grid_9 alpha">
-            <div class="alpha grid_3 tab_selected">
-              <a href="http://nairobi.kassi.local:3001/">Home</a>
-            </div>
-            <div class="grid_3 tab_unselected">
-              <a href="/en/requests">Requests</a>
-            </div>
-            <div class="grid_3 omega tab_unselected">
-              <a href="/en/offers">Offers</a>
-            </div>
-            <div class="clear"></div>
-          </div>
-          <div class="top_navi_link align_right grid_3 omega">
-            <div class="navi_link_margin_right">
-              <a href="/en/infos/about">About Kassi</a>
-            </div>
-          </div>
-        </div>
-
-		<div class="blank_slate_header">
-		<a href="/en/signup">Sign up</a>
-		 | 
-		<a href="/en/login">log in!</a>
-		</div>
-
-		
-
-<script type="text/javascript">
-
-</script>
-<div id="pageless-loader" class="grid_9" style="display: none; text-align: center; width: 100%;">
-<div class="msg" style="color: rgb(187, 187, 187); font-size: 2em;">Loading more content</div>
-<img style="margin: 10px auto;" alt="loading more results" title="load" src="/images/load.gif">
-</div>
-</div>
-
-
-
+          <% end %>
+        <% else %>
+        <p>No offers</p>
+        <% end %>
+      </div>
+    </th>
+    </tr>
+  </table>
+  <% if @requests.total_entries > 0 || @offers.total_entries > 0 %>
+  <div style="text-align: center"><%= @requests.total_entries > @offers.total_entries ? will_paginate(@requests) : will_paginate(@offers) %></div>
+  <% end %>
 </div>

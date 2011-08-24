@@ -1,31 +1,47 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//<%= I18n.locale  %>" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<%= I18n.locale  %>" lang="<%= I18n.locale  %>">
 <head>
-	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
-	<title>Kassi</title>
-        <%= stylesheet_link_tag "style" %>
+  <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+  <title>Kassi</title>
+  <%= stylesheet_link_tag "style" %>
 </head>
-
 <body>
-    <div class="header">
-        <div class="logo"><a href="#"><img alt="Kassi Logo" src="/stylesheets/images/kassi.png" /> Kassi</a></div>
+  <div class="header">
+    <div class="logo"><%= link_to image_tag("kassi.png", :alt => "Kassi Logo"), :controller => "homepage", :action => "index" %>
+      <%= link_to "Kassi", :controller => "homepage", :action => "index" %></div>
+    <% if logged_in? %>
+      <div align="right"><a href="/<%= I18n.locale  %>/logout"><img alt="Log out" src="/images/logout.png" width="30px" height="30px" /></a></div>
+    <% end %>
+  </div>
+  <div>
+    <div id="tabs">
+      <ul class="tabs"><% @title = params[:listing_type] %>
+        <% if @title == "request" %>
+          <li><%= link_to "Home", :controller => "homepage", :action => "index" %></li>
+          <li class="active"><a href="/<%= I18n.locale  %>/requests">Requests</a></li>
+          <li><a href="/<%= I18n.locale  %>/offers">Offers</a></li>
+        <% elsif @title == "offer" %>
+          <li><%= link_to "Home", :controller => "homepage", :action => "index" %></li>
+          <li><a href="/<%= I18n.locale  %>/requests">Requests</a></li>
+          <li class="active"><a href="/<%= I18n.locale  %>/offers">Offers</a></li>
+        <% else %>
+          <li class="active"><%= link_to "Home", :controller => "homepage", :action => "index" %></li>
+          <li><a href="/<%= I18n.locale  %>/requests">Requests</a></li>
+          <li><a href="/<%= I18n.locale  %>/offers">Offers</a></li>
+        <% end %>
+      </ul>
     </div>
-    <div class="wrap">
-        <div class="content"> <%= yield %> </div>
+    <div class="content"><%= yield %></div>
+  </div>
+  <div class="footer">
+    <ul class="list">
+        <li><a href="#">About</a></li>
+        <li><a href="#">Terms</a></li>
+        <li><a href="#">Feedback</a></li>
+    </ul>
+    <div class="copy">
+      <p>&copy; 2011 Kassi</p>
     </div>
-    <div class="footer">
-        <ul class="list">
-            <li><a href="#">Help</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Terms</a></li>
-            <li><a href="#">Privacy</a></li>
-            <li><a href="#">Credits</a></li>
-            <li><a href="#">Feedback</a></li>
-        </ul>
-        <div class="copy">
-            <p>&copy; 2011 Kassi</p>
-        </div>
-    </div>
+</div>
 </body>
 </html>

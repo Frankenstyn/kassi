@@ -1,0 +1,41 @@
+
+<% unless flash[:notice].blank? %><div class="hint"><%= flash[:notice] %></div><% end %>
+<% unless flash[:error].blank? %><div class="errors"><%= flash[:error] %></div><% end %>
+<div class="form">
+  <h1>Settings</h1>
+  <%=  form_for (@person, :html => {:class => "form"}) do |form|%>
+    <div>
+      <label for="person_username">Username:</label>
+      <%= @person.username(session[:cookie])%>
+    </div>
+
+    <div>
+      <% @email_edit = params[:email_edit] %>
+      <label for="person_email">Email address:</label>
+      <% if @email_edit == "true" %>
+      <%=form.text_field :email, :class => "text_field_account", :maxlength => "255"%>
+      <%=form.submit t(".save"), :class => "send_button_account", :id => "email_submit"%>
+      <% else %>
+      <%= @person.email(session[:cookie])%>
+      <%=  link_to "Edit", { :controller => "settings", :action => "account", :email_edit => "true" }, :class => "button" %>
+      <% end %>
+    </div> 
+
+    <div>
+      <% @password_edit = params[:password_edit] %>
+      <label for="person_password">Password:</label>
+      <% if @password_edit == "true" %>
+      <%=form.password_field :password, :class => :text_field_account, :maxlength => "255"%>
+      <%=form.password_field :password2, :class => :text_field_account, :maxlength => "255"%>
+      <%=form.submit t(".save"), :class => "send_button_account", :id => "password_submit"%>
+      <% else %>
+      ***********
+      <%=  link_to "Edit", { :controller => "settings", :action => "account", :password_edit => "true" }, :class => "button" %>
+      <%end%>
+    </div>
+
+
+
+
+  <%end%>
+</div>

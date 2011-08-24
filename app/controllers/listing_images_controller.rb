@@ -1,6 +1,7 @@
 class ListingImagesController < ApplicationController
   
   def destroy
+    print(@controller_name)
     @listing_image = ListingImage.find(params[:id]).destroy
     @listing_image_id = @listing_image.id.to_s
     @listing_image.destroy

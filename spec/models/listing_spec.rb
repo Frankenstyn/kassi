@@ -325,8 +325,8 @@ describe Listing do
   
   def valid_with_share_types
     @listing.share_types.clear
-    if Listing::VALID_SHARE_TYPES[@listing.listing_type][@listing.category]
-      Listing::VALID_SHARE_TYPES[@listing.listing_type][@listing.category].each do |st|
+    if Listing::VALID_SUBCATEGORIES[@listing.listing_type][@listing.category]
+      Listing::VALID_SUBCATEGORIES[@listing.listing_type][@listing.category].each do |st|
         @listing.share_types.build(:name => st)
         @listing.should be_valid
       end

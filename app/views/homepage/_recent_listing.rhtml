@@ -1,0 +1,25 @@
+<%- link_title = listing.title %>
+<div class="recent_listing">
+  <div class="listing_image">
+    <% unless listing.listing_images.empty? %>
+      <%= link_to (image_tag listing.listing_images.first.image.url(:thumb), :class => "listing_main_image", :alt => "Image"), listing_path(listing), :title => link_title %>    
+    <%end%>
+  </div>
+  <div>
+    <%= link_to listing.title, listing %>
+    <br/>
+    <% unless listing.share_types.empty? %>
+        <% listing.share_types.each do |st| %><% end %>
+    <% end %>
+    <p class="listing_description"><%= (listing.description.blank? ? "No description" : truncate(listing.description, :length => 60, :omission => "...")) %></p><br/>
+    <%= link_to listing.author.given_name_or_username, listing.author %> <span style="font-size: smaller; font-style: italic"><%= time_ago(listing.created_at) %></span>    
+    <div>
+      <% unless current_user?(listing.author) %>
+        <%= link_to "Reply", reply_to_listing_path(:id => listing.id) %> | 
+      <% end %>
+      <% comment_count = listing.comments.count > 0 ? " (#{listing.comments.count})" : ""  %>
+      <%= link_to listing.comments.count > 1 ? "Comments#{comment_count}" : "Comment#{comment_count}", listing_path(listing)+ "#comment_form" %><br/>
+    </div>
+  </div> 
+  <hr/>
+</div>

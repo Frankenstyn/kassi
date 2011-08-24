@@ -24,18 +24,18 @@ class ConversationsController < ApplicationController
   
   def received
     params[:page] = 1 unless request.xhr?
-    @conversations = @current_user.messages_that_are("received").paginate(:per_page => 15, :page => params[:page])
+    @conversations = @current_user.messages_that_are("received").paginate(:per_page => 7, :page => params[:page])
     request.xhr? ? (render :partial => "additional_messages") : (render :action => :index)
   end
   
   def sent
     params[:page] = 1 unless request.xhr?
-    @conversations = @current_user.messages_that_are("sent").paginate(:per_page => 15, :page => params[:page])
+    @conversations = @current_user.messages_that_are("sent").paginate(:per_page => 7, :page => params[:page])
     request.xhr? ? (render :partial => "additional_messages") : (render :action => :index)
   end
   
   def notifications
-    @notifications = @current_user.notifications.paginate(:per_page => 20, :page => params[:page])
+    @notifications = @current_user.notifications.paginate(:per_page => 10, :page => params[:page])
     @unread_notifications = @current_user.notifications.unread.all
     @current_user.mark_all_notifications_as_read
     logger.info "Unread: #{@unread_notifications.inspect}"
@@ -57,7 +57,7 @@ class ConversationsController < ApplicationController
     @conversation = Conversation.new(params[:conversation])
     if @conversation.save
       flash[:notice] = @conversation.listing ? "#{@conversation.listing.category}_#{@conversation.listing.listing_type}_message_sent" : "message_sent"
-      @conversation.send_email_to_participants(request) 
+      Delayed::Job.enqueue(MessageSentJob.new(@conversation.id, @conversation.messages.last.id, request.host))
       redirect_to (session[:return_to_content] || root)
     else
       render :action => :new
@@ -85,7 +85,6 @@ class ConversationsController < ApplicationController
     flash.now[:notice] = "#{@conversation.discussion_type}_#{status}"
     if status.eql?("accepted")
       Delayed::Job.enqueue(ConversationAcceptedJob.new(@conversation.id, request.host))
-      Delayed::Job.enqueue(TestimonialReminderJob.new(@conversation.id, request.host), 0, 1.week.from_now)
     end
     respond_to do |format|
       format.html { render :action => :show }

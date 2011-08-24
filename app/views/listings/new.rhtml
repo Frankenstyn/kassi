@@ -1,0 +1,23 @@
+<div class="form">
+<h2>New  <%= @listing.listing_type %></h2>
+<form method="post" action="/<%= I18n.locale  %>/listings" accept-charset="UTF-8" enctype="multipart/form-data">
+<div style="margin:0;padding:0;display:inline"><%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+</div><% unless flash[:error].blank? %><div class="errors"><%= flash[:error] %></div><% end %>
+<% if Listing::VALID_SUBCATEGORIES[@listing.listing_type][@listing.category] %>
+<label for="category">Sub Category: </label><select name="listing[share_type_attributes][]">
+<% Listing::VALID_SUBCATEGORIES[@listing.listing_type][@listing.category].each do |subcategory| %>
+<option value="<%= subcategory %>"><%= subcategory.titleize %></option>
+<% end %></select><% end %>        
+<label>Title*:</label><input type="text" size="100" maxlength="100" name="listing[title]" value="<%= @form_title %>"/>
+<label>Description: </label><textarea name="listing[description]" type="text" maxlength="5000"><%= @form_description %></textarea>
+<label>Expiration Date: </label>
+<%= date_select(:listing, :valid_until, {:start_year => Time.now.year, :end_year => Time.now.year + 1, :default => 3.months.from_now, :use_short_month => true, :order => [:day, :month, :year]}, :use_short_month => true,:class => "date") %>    
+<label>Visible to: </label><select name="listing[visibility]">
+<option selected="selected" value="everybody">Everyone</option><option value="this_community">Only <%= @current_community.name %> community members</option>
+</select><label>Image: </label><input type="file" name="listing[listing_images_attributes][0][image]" style="width: 90%"/><br/><br/>
+<input type="hidden" value="<%= @current_community.id %>" name="listing[current_community_id]"/>
+<input type="hidden" value="<%= @listing.listing_type %>" name="listing[listing_type]"/>
+<input type="hidden" value="<%= @listing.category %>" name="listing[category]"/>
+<input class="send_button" type="submit" name="commit" value="Save"/>
+</form>
+</div>

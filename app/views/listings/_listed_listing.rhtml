@@ -1,0 +1,35 @@
+<% title = t("listings.show.#{listing.category}_#{listing.listing_type}") + ": " + listing.title%>
+<div class="listed_listing">
+  <div >
+    <% unless listing.listing_images.empty?%>
+      <%= link_to (image_tag listing.listing_images.first.image.url(:thumb), :class => "listing_main_image", :alt => listing.title), listing_path(listing), :title => title%>
+      
+    <% else %>
+      <div class="listing_image_ <%listing.category%>">
+        <%=  link_to "", listing_path(listing), :title => title%>
+      </div>
+  </div>
+   <%end%>
+  
+  <div class="">
+<%= link_to (params[:q] ? title : listing.title), listing%>
+    <div id="listed_listing_closed_status_container_<%listing.id.to_s%>">
+      <%= render :partial => "listings/listed_listing_closed_status", :locals => { :listing => listing }%>
+      <div class = "offer_description">
+          <%= (listing.description.blank? ? t("listings.show.no_description") : truncate(listing.description, :length => 320, :omission => "..."))%>
+      </div>
+    </div>
+     <div >
+      <div id ="listed_listing_edit_links_<%listing.id.to_s%>">
+        <%= render :partial => "listings/listed_listing_edit_links", :locals => { :listing => listing }%>
+      </div>
+     </div>
+      <div class="float_right">
+        <span>
+        <%= link_to listing.author.given_name_or_username, listing.author %>
+          <span style="font-size: smaller; font-style: italic"><%= time_ago(listing.created_at) %></span>
+        </span>
+      </div>
+  </div>
+</div>
+<hr/>

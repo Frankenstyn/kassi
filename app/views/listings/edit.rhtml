@@ -1,0 +1,25 @@
+<div class="form">
+<h2>New  <%= @listing.listing_type %></h2>
+<div><% unless flash[:error].blank? %><div class="errors"><%= flash[:error] %><% end %></div>
+<%= form_for @listing, :html => {:multipart => true} do |form| %>
+<%= form.error_messages %>
+<label for="category">Sub Category: </label><select name="listing[share_type_attributes][]">
+<% Listing::VALID_SUBCATEGORIES[@listing.listing_type][@listing.category].each do |subcategory| %>
+<% if @subcategory.name == subcategory%><option selected="selected" value="<%= subcategory %>"><%= subcategory.titleize %></option>
+<% else %><option value="<%= subcategory %>"><%= subcategory.titleize %></option><% end %><% end %></select>
+<%= form.label :title, "Title*: " %><%= form.text_field(:title, :maxlength => "100") %>
+<%= form.label :description, "Description: " %><%= form.text_area(:description, :maxlength => "5000") %>
+<label>Expiration Date: </label>
+<%= date_select(:listing, :valid_until, {:start_year => Time.now.year, :end_year => Time.now.year + 1, :default => 3.months.from_now, :use_short_month => true, :order => [:day, :month, :year]}, :use_short_month => true,:class => "date") %>
+<label>Visible to: </label><select name="listing[visibility]"><% if @listing.visibility == "everybody" %>
+<option selected="selected" value="everybody">Everyone</option><option value="this_community">Only <%= @current_community.name %> community members</option>
+<% else %><option value="everybody">Everyone</option><option selected="selected" value="this_community">Only <%= @current_community.name %> community members</option><% end %>
+<% if @listing.closed? %><%= form.hidden_field :open, :value => true %><% end %>
+<%= form.hidden_field :last_modified, :value => DateTime.now %><%= form.fields_for :listing_images do |builder| %>
+<label>Image: </label><% if builder.object.new_record? %><%= builder.file_field(:image) %>
+<% else %><table><tr><td rowspan="3"><%= image_tag @listing.listing_images.first.image.url(:thumb) %><br/></td>
+</tr><tr></tr><tr><td><%= link_to "Remove image", listing_image_path(@listing, @listing.listing_images.first), :method => :delete %></td></tr></table>
+<% end %><% end %><%= form.hidden_field :current_community_id, :value => @current_community.id %>
+<%= form.hidden_field(:listing_type, :value => @listing.listing_type) %>
+<%= form.hidden_field(:category, :value => @listing.category) %><br/>
+<%= form.submit "Update " %><% end %></div>

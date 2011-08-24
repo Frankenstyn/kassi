@@ -1,0 +1,19 @@
+<div class="form">
+  <h1>Settings</h1>
+  <h2>
+    <%=t(".update_profile_picture")%>
+  </h2>
+  <div>
+    <%=form_tag({ :controller => "people", :action => "update_avatar", :id => @person.id }, :method => "put",  :multipart => true, :id => "avatar_form") do%>
+  </div>
+  <div>
+    <%=file_field_tag "file", :size => 30, :id => "avatar_file"%>
+  </div>
+  <div>
+    <%=submit_tag t(".add_avatar_submit"), :onclick => "this.disabled=true,this.form.submit();", :class => "send_button_notifications"%>
+  </div>
+  <div id="settings_avatar_image">
+    <%=large_avatar_thumb(@person)%>
+  </div>
+  <%end%>
+</div>

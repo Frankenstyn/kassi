@@ -32,4 +32,7 @@ class Admin::FeedbacksController < ApplicationController
     end
   end
   
+  def show
+    
+  end
 end

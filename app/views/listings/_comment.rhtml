@@ -1,0 +1,3 @@
+<b><%= link_to comment.author.name, comment.author %> says:</b>
+<div class="comment"><%= comment.content %></div>
+<span style="font-size: smaller"><%= l(comment.created_at, :format => :short) %></span><br/><br/>

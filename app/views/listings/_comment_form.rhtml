@@ -1,0 +1,15 @@
+<% if @listing.closed? %>
+<%= "You cannot send a new comment because #{@listing.listing_type} is closed" %>
+<% elsif logged_in? %>
+<div class="form">
+  <%= form_for Comment.new, :url => listing_comments_path(:listing_id => @listing.id.to_s), :remote => true do |f| %>
+  <%= f.label :content, "Write comment" %>
+  <%= f.text_area :content %>
+  <%= f.hidden_field :listing_id, :value => @listing.id.to_s %>
+  <%= f.hidden_field :author_id, :value => @current_user.id %>
+  <%= f.submit "Send comment" %>
+  <% end %>
+</div>
+<% else %>
+<p>You must <%= link_to t(".log_in"), login_path %> to send comment</p>
+<% end %>

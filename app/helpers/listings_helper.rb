@@ -14,8 +14,8 @@ module ListingsHelper
   def get_share_type_checkbox_classes(share_type)
     classes = ""
     Listing::VALID_CATEGORIES.each do |category|
-      if Listing::VALID_SHARE_TYPES[@listing.listing_type][category] &&
-         Listing::VALID_SHARE_TYPES[@listing.listing_type][category].include?(share_type)
+      if Listing::VALID_SUBCATEGORIES[@listing.listing_type][category] &&
+         Listing::VALID_SUBCATEGORIES[@listing.listing_type][category].include?(share_type)
         classes += "#{category} "
       end  
     end
