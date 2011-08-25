@@ -10,7 +10,7 @@
     <div class="logo"><%= link_to image_tag("kassi.png", :alt => "Kassi Logo"), :controller => "homepage", :action => "index" %>
       <%= link_to "Kassi", :controller => "homepage", :action => "index" %></div>
     <% if logged_in? %>
-      <div align="right"><a href="/<%= I18n.locale  %>/logout"><img alt="Log out" src="/images/logout.png" width="30px" height="30px" /></a></div>
+    <div class="logout"><a href="/<%= I18n.locale  %>/logout">Logout</a></div>
     <% end %>
   </div>
   <div>
@@ -35,9 +35,9 @@
   </div>
   <div class="footer">
     <ul class="list">
-        <li><a href="#">About</a></li>
-        <li><a href="#">Terms</a></li>
-        <li><a href="#">Feedback</a></li>
+        <li><a href="/<%= I18n.locale  %>/infos/about">About</a></li>
+        <li><a href="/<%= I18n.locale  %>/infos/terms">Terms</a></li>
+        <li><%= link_to "Feedback", :controller => "homepage" %></li>
     </ul>
     <div class="copy">
       <p>&copy; 2011 Kassi</p>

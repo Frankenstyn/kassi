@@ -9,7 +9,7 @@
   <table class="listings_table" style="width: 100%">
     <tr><th>
       <div class="recent_listings">
-        <p class="title">REQUESTS</p>
+        <p class="listings_title">REQUESTS</p>
         <% if @requests.total_entries > 0%>
           <%= render :partial => "recent_listing", :collection => @requests, :as => :listing, :spacer_template => "request_spacer" %>
           <%- if @requests.total_pages < 2 && @private_listings && @private_listings["request"].present? && @private_listings["request"] > 0 %>
@@ -23,21 +23,18 @@
         <%end%>
       </div>
     </th>
-    <th>
-      <div class="recent_listings">
-        <p class="title">OFFERS</p>
-        <%- if @offers.total_entries > 0%>
+        <%- if @offers.total_entries > 0 %>
+          <th>
+          <div class="recent_listings">
+            <p class="listings_title">OFFERS</p>
           <%= render :partial => "recent_listing", :collection => @offers, :as => :listing, :spacer_template => "offer_spacer" %>
           <%- if @offers.total_pages < 2 && @private_listings && @private_listings["offer"].present? && @private_listings["offer"] > 0 %>
             <div>
               <%= render :partial => "additional_private_listings_slate",  :locals => {:listing_type => "offer", :private_listings_count =>  @private_listings["offer"]} %>
             </div>
           <% end %>
-        <% else %>
-        <p>No offers</p>
-        <% end %>
-      </div>
-    </th>
+            </div></th>
+        <% end %>      
     </tr>
   </table>
   <% if @requests.total_entries > 0 || @offers.total_entries > 0 %>

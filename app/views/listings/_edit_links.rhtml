@@ -1,6 +1,6 @@
 <% if @listing.closed? %>
-<%= link_to t(".reopen_#{@listing.listing_type}"), edit_listing_path(@listing), :class => "button" %>
+<%= link_to "Reopen #{@listing.listing_type}", edit_listing_path(@listing), :class => "button" %>
 <% else %>
-<%= link_to t(".edit_#{@listing.listing_type}"), edit_listing_path(@listing), :class => "button" %> | 
-<%= link_to t(".close_#{@listing.listing_type}"), close_person_listing_path(@current_user, @listing), :class => "button", :method => :put, :remote => true %>
+<%= link_to "Edit #{@listing.listing_type}", edit_listing_path(@listing), :class => "button" %> | 
+<%= button_to "Close #{@listing.listing_type}", close_person_listing_path(@current_user, @listing), :method => :put, :class => "button_to" %>
 <% end %>
