@@ -27,7 +27,7 @@
       <div class="float_right">
         <span>
         <%= link_to listing.author.given_name_or_username, listing.author %>
-          <span style="font-size: smaller; font-style: italic"><%= time_ago(listing.created_at) %></span>
+        <%= time_ago(listing.created_at) %>
         </span>
       </div>
   </div>
