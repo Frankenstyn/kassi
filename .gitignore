@@ -20,3 +20,4 @@ old_databases.sql
 capybara*
 public/system/
 
+/nbproject/private/

@@ -9,8 +9,9 @@
   <div class="header">
     <div class="logo"><%= link_to image_tag("kassi.png", :alt => "Kassi Logo"), :controller => "homepage", :action => "index" %>
       <%= link_to "Kassi", :controller => "homepage", :action => "index" %></div>
-    <% if logged_in? %>
+      <% if logged_in? %><center><div class="logged_in_notifications"><%= render :partial => "layouts/logged_in"%></div></center>
     <div class="logout"><a href="/<%= I18n.locale  %>/logout">Logout</a></div>
+      <% else %><div class="login"><a href="/<%= I18n.locale  %>/login">Log in</a></div>
     <% end %>
   </div>
   <div>
@@ -31,13 +32,13 @@
         <% end %>
       </ul>
     </div>
-    <div class="content"><%= yield %></div>
+    <div class="content"><%= content_for?(:content) ? yield(:content) : yield %></div>
   </div>
   <div class="footer">
     <ul class="list">
         <li><a href="/<%= I18n.locale  %>/infos/about">About</a></li>
         <li><a href="/<%= I18n.locale  %>/infos/terms">Terms</a></li>
-        <li><%= link_to "Feedback", :controller => "homepage" %></li>
+        <%= link_to "Feedback", {:controller => "feedback", :action => "show" } %>
     </ul>
     <div class="copy">
       <p>&copy; 2011 Kassi</p>

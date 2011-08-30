@@ -1,0 +1,8 @@
+<%= content_for :content do %><div><ul class="nav">
+<li><%= link_to "Profile", profile_person_settings_path(:person_id => @current_user.id.to_s) %></li>
+<li><%= link_to "Avatar", avatar_person_settings_path(:person_id => @current_user.id.to_s) %></li>
+<li><%= link_to "Account", account_person_settings_path(:person_id => @current_user.id.to_s) %></li>
+<li><%= link_to "Notifications", notifications_person_settings_path(:person_id => @current_user.id.to_s) %></li>
+</ul></div><% unless flash[:notice].blank? %><div class="ok"><%= flash[:notice] %></div><% end %>
+<% unless flash[:error].blank? %><div class="errors"><%= flash[:error] %></div><% end %>
+<%= yield %><% end %><%= render :file => 'layouts/application' %>

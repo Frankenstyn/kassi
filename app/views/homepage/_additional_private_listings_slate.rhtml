@@ -1,0 +1,8 @@
+<% if (private_listings_count_offers > 0) || (private_listings_count_requests > 0) %>
+  <% listingscount = private_listings_count_offers + private_listings_count_requests %>
+  <% listingscount > 1 ? message = "Additionally there are" : message = "Additionally there is" %>
+  <% if (private_listings_count_offers > 0) %><% private_listings_count_offers > 1 ? message = message + " #{private_listings_count_offers} other offers" : message = message + " #{private_listings_count_offers} other offer" %><% end %>
+  <% if ((private_listings_count_offers > 0) && (private_listings_count_requests > 0)) %><% message = message + " and" %><% end %>
+  <% if (private_listings_count_requests > 0) %><% private_listings_count_requests > 1 ? message = message + " #{private_listings_count_requests} other requests" : message = message + " #{private_listings_count_requests} other request" %><% end %>
+<% end %><% unless message.blank? %><div><% message = message + ", but only visible to members." %><%= message %></div><% end %>
+<%= link_to "Create account", sign_up_path, :class => "button" %> or <%= link_to "Log in", login_path, :class => "button" %>

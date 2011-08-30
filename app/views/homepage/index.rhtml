@@ -1,11 +1,8 @@
 <div style="margin-top: -25px"><% if logged_in? %><h2>Hi <%= link_to @current_user.given_name_or_username, @current_user %></h2>
-    <p class="hint">Welcome to Kassi. Make a new request for something you need or let others know what you can offer by going to the appropriate tab.</p><% else %>
+    <p class="hint">Welcome to Kassi. Make a new request for something you need or let others know what you can offer by going to the appropriate tab.</p><% else %><h4><% unless logged_in? %>New user? <a href="/<%= I18n.locale  %>/signup">Sign up, </a> otherwise <a href="/<%= I18n.locale  %>/login">Log in.</a><% end %></h4>
     <p class="hint">Welcome to Kassi. Kassi is a service for the community. Here, you can lend, rend, or buy goods/services.
-    <% end %>
-    <% unless logged_in? %>New user? <a href="/<%= I18n.locale  %>/signup">Sign up</a> otherwise <a href="/<%= I18n.locale  %>/login">Log in.</a><% end %></p>
+    <% end %></p>
 </div><div style="width: 100%"><div class="title">LISTINGS</div><hr class="titlebar"/>
-  <% if logged_in? %>
-  <% else %><a href="/<%= I18n.locale  %>/signup" class="button">Sign up</a> | <a class="button" href="/<%= I18n.locale  %>/login">Log in</a><% end %>
   <table class="listings_table" style="width: 100%">
     <tr><th>
       <div class="recent_listings">
@@ -14,9 +11,6 @@
           <%= render :partial => "recent_listing", :collection => @requests, :as => :listing, :spacer_template => "request_spacer" %>
           <%- if @requests.total_pages < 2 && @private_listings && @private_listings["request"].present? && @private_listings["request"] > 0 %>
             <br/>
-            <div>
-              <%= render :partial => "additional_private_listings_slate",  :locals => {:listing_type => "request", :private_listings_count =>  @private_listings["request"]} %>
-            </div>
           <% end %>
         <% else %>
           <p>No requests</p>
@@ -28,10 +22,7 @@
           <div class="recent_listings">
             <p class="listings_title">OFFERS</p>
           <%= render :partial => "recent_listing", :collection => @offers, :as => :listing, :spacer_template => "offer_spacer" %>
-          <%- if @offers.total_pages < 2 && @private_listings && @private_listings["offer"].present? && @private_listings["offer"] > 0 %>
-            <div>
-              <%= render :partial => "additional_private_listings_slate",  :locals => {:listing_type => "offer", :private_listings_count =>  @private_listings["offer"]} %>
-            </div>
+          <%- if @offers.total_pages < 2 && @private_listings && @private_listings["offer"].present? && @private_listings["offer"] > 0 %>           
           <% end %>
             </div></th>
         <% end %>      
@@ -41,3 +32,6 @@
   <div style="text-align: center"><%= @requests.total_entries > @offers.total_entries ? will_paginate(@requests) : will_paginate(@offers) %></div>
   <% end %>
 </div>
+<div><% unless logged_in? %>
+<%= render :partial => "additional_private_listings_slate",  :locals => {:listing_type => "offer", :private_listings_count_offers =>  @private_listings["offer"], :private_listings_count_requests =>  @private_listings["request"]} %>          
+<% end %></div>

@@ -121,7 +121,6 @@ class PeopleController < ApplicationController
   end
   
   def update
-    @username=params[:person][:username]
     @given_name=params[:person][:given_name]
     @family_name=params[:person][:family_name]
     @street_address=params[:person][:street_address]
@@ -134,9 +133,49 @@ class PeopleController < ApplicationController
     @password = params[:person][:password]
     @password2 = params[:person][:password2]
 
+    if params[:person].has_key?(:given_name)
+      if @given_name.blank?
+        flash[:error] = "Given name required"
+        redirect_to :back
+        return
+      end
+    end
+
+    if params[:person].has_key?(:family_name)
+      if @family_name.blank?
+      flash[:error] = "Family name required"
+      redirect_to :back
+      return
+      end
+    end
+
+    if params[:person].has_key?(:email)
+    unless isvalidemail(params[:person][:email])
+        flash[:error] = "Invalid email"
+        redirect_to :back
+        return
+      end
+    end
+
+    if params[:person].has_key?(:password)
+      if params[:person][:password].length < 4
+      flash[:error] = "Password must be at least 4 characters long"
+      redirect_to :back
+      return
+      end
+    end
+
+    if params[:person].has_key?(:password2)
+      unless params[:person][:password] == params[:person][:password2]
+      flash[:error] = "Passwords do not match"
+      redirect_to :back
+      return
+      end
+    end
+
     begin
       @person.update_attributes(params[:person], session[:cookie])
-      flash[:notice] = :person_updated_successfully
+      flash[:notice] = "Person updated successfully"
     rescue RestClient::RequestFailed => e
       flash[:error] = "update_error"
     end

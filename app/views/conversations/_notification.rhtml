@@ -1,0 +1,8 @@
+<div class="notification" <%= "#{(@unread_notifications.include?(notification) ? "unread" : "")}" %>">
+     <div class="notification_date">
+<%= l(notification.created_at, :format => :short)%>
+  </div>
+     <div class="notification_content ">
+       <%= render :partial => "conversations/notifications/#{notification.type.downcase}", :locals => { :notification => notification }%>
+  </div>
+</div>

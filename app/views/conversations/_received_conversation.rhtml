@@ -1,0 +1,9 @@
+<% last_message = conversation.last_message(@current_user) %>
+<div><table class="table"><tr><td class="orange" colspan="2">
+<%= link_to conversation.title, single_conversation_path(:conversation_type => action_name, :id => conversation.id)%>
+</td></tr><tr><td style="font-style: italic"><span> <%= l last_message.created_at, :format => :shorter %> </span></td>
+<td><%= link_to last_message.sender.name, last_message.sender %></td></tr>
+<tr><td colspan="2" class="black"><div>
+<span><%= link_to(truncate(last_message.content, :length => 120, :omission => "..."), single_conversation_path(:conversation_type => action_name, :id => conversation.id))%></span>
+</div></td></tr><tr id ="conversation_<%=  conversation.id.to_s%>_status"  style="font-style: italic; font-weight: bold">
+<%= render :partial => "status", :locals => { :conversation => conversation } %></tr></table></div>

@@ -1,0 +1,6 @@
+<% if Conversation.unread_count(@current_user.id) > 0 %>
+<a href="<%= received_person_messages_path(:person_id => @current_user.id) %>" title="Messages"><%= image_tag "icons/header_icons.png" %></a>
+<% else %><a href="<%= received_person_messages_path(:person_id => @current_user.id) %>" title="Messages"><%= image_tag "icons/header_icons.png" %></a>
+<% end %>
+
+

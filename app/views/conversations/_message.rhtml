@@ -1,0 +1,26 @@
+
+<div class="message" style="background-color:#f2eee0">
+  <%- if current_user?(message.sender)%>
+    <div class="message_content_spacer"></div>
+  <%- else%>
+  <%end%>
+  <div class="message_main" >
+      <div class="message_sender" style="margin-bottom: 2px; font-weight: bold;">
+        <%= link_to message.sender.name, message.sender %>
+        <span>
+          <%= l(message.created_at, :format => :short) + ":" %>
+        </span>
+      </div>
+      <div class="message_content_div">
+        <%- text_with_line_breaks do  %>
+          <%= message.content %>
+        </div>
+      </div>
+
+      <%- if current_user?(message.sender) %>
+        <div class="message_arrow_right">&nbsp;</div>
+        
+      <%end%>
+      </div><hr/>
+<%end%>
+

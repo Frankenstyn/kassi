@@ -46,7 +46,7 @@ class Listing < ActiveRecord::Base
       "computer" => ["desktops", "laptops", "software", "accessories"],
       "services" => ["software development", "repairs", "assignments", "other"],
       "entertainment" => ["movies", "music", "games", "other"],
-      "other" => nil,
+      "other" => "other",
     },
     "request" => {
       "housing" => ["rental", "for sale", "hostel", "pirate", "other"],
@@ -54,7 +54,7 @@ class Listing < ActiveRecord::Base
       "computer" => ["desktops", "laptops", "software", "accessories"],
       "services" => ["software development", "repairs", "assignments", "other"],
       "entertainment" => ["movies", "music", "games", "other"],
-      "other" => nil,
+      "other" => "other",
     }
   }
   VALID_VISIBILITIES = ["everybody", "this_community"]

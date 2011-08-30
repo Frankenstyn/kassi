@@ -1,0 +1,38 @@
+
+<%- last_message = conversation.last_message(@current_user, false)%>
+<%- receiver = conversation.other_party(@current_user)%>
+
+<div class="conversation">
+  <table class="table">
+    <tr>
+
+      <td class="orange" colspan="2">
+        <%= link_to conversation.title, single_conversation_path(:conversation_type => action_name, :id => conversation.id) %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span><%= l last_message.created_at, :format => :shorter%></span>
+      </td>
+      <td>
+
+        <div style="clear: both"></div>
+        <div>
+          <%= link_to receiver.name, receiver%>
+        </div>
+      </td>
+    </tr>
+    <tr><td  class="black">
+        <div class="conversation_center">
+
+          <span><%= link_to(truncate(last_message.content, :length => 160, :omission => "..."), single_conversation_path(:conversation_type => action_name, :id => conversation.id))%></span>
+        </div>
+      </td>
+    </tr>
+
+    <tr id ="conversation_<%=  conversation.id.to_s%>_status" style="text-align: center; font-style: italic;font-weight: bold;">
+      <%= render :partial => "status", :locals => { :conversation => conversation }%>
+    </tr>
+
+  </table>
+</div>

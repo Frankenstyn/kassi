@@ -1,20 +1,9 @@
-<% unless flash[:notice].blank? %><div class="hint"><%= flash[:notice] %></div><% end %>
-<h2>
-  <%=t(".i_want_to_get_email_notification_when")%>
-</h2>
-
-<div class="form">
-  <%=form_for (@person) do |form|%>
-  <%Person::EMAIL_NOTIFICATION_TYPES.each do |notification_type|%>
-  <div>
-    <%=check_box_tag "person[preferences][#{notification_type}]", "true", @person.preferences[notification_type] ? true : false, :id => notification_type%>
-    <%=label_tag notification_type, t(".#{notification_type}"), :class => "checkbox"%>
-    <%=form.hidden_field "preferences[temp]", :value => "temp"%>
-  </div>
-</div> 
-<%end%>
-  <div>
-    <%=form.submit t("settings.save_information"), :class => "send_button_notifications"%>
-  </div>
-<%end%>
+<h3>I want to get a notification when...</h3>
+<%= form_for (@person) do |form| %>
+<% Person::EMAIL_NOTIFICATION_TYPES.each do |notification_type| %>
+<div>
+<%= check_box_tag "person[preferences][#{notification_type}]", "true", @person.preferences[notification_type] ? true : false, :id => notification_type %>
+<%= label_tag notification_type, t(".#{notification_type}"), :class => "checkbox"%>
+<%= form.hidden_field "preferences[temp]", :value => "temp"%>
+</div><%end%><%=form.submit t("settings.save_information"), :class => "send_button_notifications"%><%end%>
 
