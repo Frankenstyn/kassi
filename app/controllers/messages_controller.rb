@@ -9,7 +9,6 @@ class MessagesController < ApplicationController
     @message = Message.new(params[:message])
     if @message.save 
       flash.now[:message_notice] = "reply_sent"
-      @message.conversation.send_email_to_participants(request)
     else
       flash[:error] = "reply_cannot_be_empty"
     end  

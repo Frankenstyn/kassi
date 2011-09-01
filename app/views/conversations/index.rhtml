@@ -1,5 +1,12 @@
-<% if @conversations && !@conversations.empty? %>
+
+<%- if @conversations && !@conversations.empty?%>
 <div id="conversations">
-<%= render :partial => "conversations/#{action_name}_conversation", :collection => @conversations, :as => :conversation %>
-<%= will_paginate(@conversations) %><%= pageless(@conversations.total_pages, '#conversations', "#{action_name}", "More messages") %>
-</div><% else%><div id="no_conversations"><%= t(".no_#{action_name}_messages")%></div><% end %>
+    <%= render :partial => "conversations/#{action_name}_conversation", :collection => @conversations, :as => :conversation%>
+    <%= will_paginate(@conversations)%>
+    <%= pageless(@conversations.total_pages, '#conversations', "#{action_name}", t('.loading_more_messages')) %>
+</div>
+<%- else%>
+<div id="no_conversations">
+    <%= t(".no_#{action_name}_messages")%>
+</div>
+  <%end%>

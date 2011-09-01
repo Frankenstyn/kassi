@@ -1,0 +1,8 @@
+  <VirtualHost *:80>
+      ServerName www.yourhost.com
+      DocumentRoot /Desktop/kassi/public    # <-- be sure to point to 'public'!
+      <Directory /Desktop/kassi/public>
+         AllowOverride all              # <-- relax Apache security settings
+         Options -MultiViews            # <-- MultiViews must be turned off
+      </Directory>
+   </VirtualHost>

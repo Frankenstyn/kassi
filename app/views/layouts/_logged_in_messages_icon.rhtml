@@ -1,6 +1,15 @@
-<% if Conversation.unread_count(@current_user.id) > 0 %>
-<a href="<%= received_person_messages_path(:person_id => @current_user.id) %>" title="Messages"><%= image_tag "icons/header_icons.png" %></a>
-<% else %><a href="<%= received_person_messages_path(:person_id => @current_user.id) %>" title="Messages"><%= image_tag "icons/header_icons.png" %></a>
-<% end %>
+
+ <%- if Conversation.unread_count(@current_user.id) > 0 %>
+<a href='/people/<%=  @current_user.id%>/messages/received' title="messages">
+  <div class="logged_in_icon_inbox_notifications">
+    <div class="logged_in_icon_notification_text">
+           <%= link_to Conversation.unread_count(@current_user.id).to_s, received_person_messages_path(:person_id => @current_user.id), :title => t('.messages')%>
+    </div></div> </a>
+  <%else%>
+<a href='/people/<%=  @current_user.id%>/messages/received' title="messages">
+  <div class="logged_in_icon_inbox_notifications">
+  </div> </a>
+  <%end%>
+
 
 

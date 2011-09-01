@@ -711,3 +711,56 @@ table h1{
 span.not_visible {
 	visibility: hidden;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.message_form_field_container  {
+          background: #d1c9b4;
+          width: 90%;
+          padding:5px;
+}
+.message_form_field_container h1 {
+font-size: 16px;
+font-weight: bold;
+text-align: center;
+background: none;
+}
+
+
+  .message_form_field_container input.text_field {
+    font-weight: bold;
+    color: #464646;
+    background: #f7f5e6;
+    width: 90%;
+    font-size: 12px;
+    height: 13px;
+    padding: 1px;
+    margin-left: 10px;
+    border: 0; }
+    .message_form_field_container input.send_button {
+    font-size: 14px;
+    font-weight: bold;
+    background: #765d3a;
+    width: 50%;
+    height: 25px;
+    padding: 0;
+    border: 0;
+    color: white;
+    margin: 0 0 0 10px; }

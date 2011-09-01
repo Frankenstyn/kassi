@@ -1,5 +1,8 @@
-<%= content_for :content do %><div><ul class="nav2">
-<li><%= link_to "Inbox", received_person_messages_path(:person_id => @current_user.id.to_s) %></li>
-<li><%= link_to "Sent", sent_person_messages_path(:person_id => @current_user.id.to_s) %></li>
-<li><%= link_to "Notifications", notifications_person_messages_path(:person_id => @current_user.id.to_s) %></li>
-</ul></div><%= yield %><% end %><%= render :file => 'layouts/application' %>
+<%= render :file => 'layouts/application'%>
+  <ul class="tabs">
+    <li><%= link_to "inbox", received_person_messages_path(:person_id => @current_user.id.to_s)%></li>
+    <li> <%= link_to t('.sent'), sent_person_messages_path(:person_id => @current_user.id.to_s)%></li>
+<li><%= link_to  t('.notifications'), notifications_person_messages_path(:person_id => @current_user.id.to_s) %></li>
+
+  </ul>
+<%yield%>

@@ -24,18 +24,18 @@ class ConversationsController < ApplicationController
   
   def received
     params[:page] = 1 unless request.xhr?
-    @conversations = @current_user.messages_that_are("received").paginate(:per_page => 15, :page => params[:page])
+    @conversations = @current_user.messages_that_are("received").paginate(:per_page => 7, :page => params[:page])
     request.xhr? ? (render :partial => "additional_messages") : (render :action => :index)
   end
   
   def sent
     params[:page] = 1 unless request.xhr?
-    @conversations = @current_user.messages_that_are("sent").paginate(:per_page => 15, :page => params[:page])
+    @conversations = @current_user.messages_that_are("sent").paginate(:per_page => 7, :page => params[:page])
     request.xhr? ? (render :partial => "additional_messages") : (render :action => :index)
   end
   
   def notifications
-    @notifications = @current_user.notifications.paginate(:per_page => 20, :page => params[:page])
+    @notifications = @current_user.notifications.paginate(:per_page => 10, :page => params[:page])
     @unread_notifications = @current_user.notifications.unread.all
     @current_user.mark_all_notifications_as_read
     logger.info "Unread: #{@unread_notifications.inspect}"
