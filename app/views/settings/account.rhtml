@@ -1,15 +1,36 @@
-<table class="set_table"><%= form_for (@person, :html => {:class => "form"}) do |form| %>
-  <tr><td><label style="font-weight: bolder" for="person_username">Username:</label></td><td><%= @person.username(session[:cookie]) %></td></tr>
-<tr><% @email_edit = params[:email_edit] %>
+<table class="form">
+<%= form_for (@person, :html => {:class => "form"}) do |form| %>
+  <tr>
+    <td><label style="font-weight: bolder" for="person_username">Username:</label></td>
+    <td><%= @person.username(session[:cookie]) %></td>
+  </tr>
+<tr>
+<% @email_edit = params[:email_edit] %>
 <td><label style="font-weight: bolder" for="person_email">Email:</label></td>
-<% if @email_edit == "true" %><td><%=form.text_field :email, :maxlength => "255"%></td>
-<td ><%=form.submit "Save" %></td><% else %><td><%= @person.email(session[:cookie]) %></td>
+<% if @email_edit == "true" %>
+<td><%=form.text_field :email, :maxlength => "255"%></td>
+<td ><%=form.submit "Save" %></td>
+<% else %>
+<td><%= @person.email(session[:cookie]) %></td>
 <td><%= link_to "Edit", { :controller => "settings", :action => "account", :email_edit => "true" }, :class => "button" %></td>
-</tr><% end %><tr><% @password_edit = params[:password_edit] %><td><label style="font-weight: bolder" for="person_password">Password:</label></td>
-<% if @password_edit == "true" %><td><%= form.password_field :password, :maxlength => "255"%></td>
-<tr><td><label style="font-weight: bolder" for="person_password">Reenter password:</label></td>
-<td><%=form.password_field :password2, :maxlength => "255"%></td></tr>
-<tr><td></td><td style="text-align: center"><%=form.submit t(".save"), :class => "send_button_account", :id => "password_submit"%></td></tr>
-<% else %><td>***********</td>
+</tr>
+<% end %>
+<tr>
+<% @password_edit = params[:password_edit] %>
+ <td><label style="font-weight: bolder" for="person_password">Password:</label></td>
+<% if @password_edit == "true" %>
+ <td><%= form.password_field :password, :maxlength => "255"%></td>
+<tr>
+  <td><label style="font-weight: bolder" for="person_password">Reenter password:</label></td>
+<td><%=form.password_field :password2, :maxlength => "255"%></td>
+</tr>
+<tr><td></td>
+  <td style="text-align: center"><%=form.submit t(".save"), :class => "send_button_account", :id => "password_submit"%></td>
+</tr>
+<% else %>
+<td>***********</td>
 <td><%=  link_to "Edit", { :controller => "settings", :action => "account", :password_edit => "true" }, :class => "button" %></td>
-</tr><%end%><%end%></table>
+</tr>
+<%end%>
+<%end%>
+</table>
