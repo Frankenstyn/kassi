@@ -1,22 +1,22 @@
+html, body {height: 100%;}
 html, body, .tabs, .footer, .list {padding:0; margin:0;}
 body {font-family:Tahoma,'Trebuchet MS', Arial, sans-serif;font-size:11px;color:#333;width:100%;}
 a {text-decoration: none;}
 a img {border: none;}
-.header {height:50px; background:#254306 url(images/header.png) repeat-x 0 0;}
+.container {min-height: 100%; position: relative; background: #f7f5e6;}
+.header {height:50px; background: #254306 url(images/header.png) repeat-x 0 0;}
 .logo {height:16px;margin:4px;}
 .logo a {color: #fff;}
-.content {padding:5px;}
-#tabs {padding:5px; clear:left; background: #f7f5e6}
-.footer {background:#544229 url(images/footer.png) repeat-x 0 0; color:#fff;}
+.content {clear:left; background: #f7f5e6;padding: 5px 5px 70px 5px;}
+.footer {background:#544229 url(images/footer.png) repeat-x 0 0; color:#fff;height:65px;bottom: 0;width: 100%;position: absolute;}
 .left, .tabs li, .logo, .list li {float:left;}
+#tabs {padding:5px; clear:left; background: #f7f5e6}
 .tabs {margin:-25px 5px 0 5px;}
 .tabs li, .footer li, .list li {list-style:none;}
-.tabs li {width:33%;}
-.footer li {width:33%;}
+.tabs li, .footer li {width:33%;}
 .tabs a, .footer a {display:block; padding:3px 0; color:#ffffff; height:15px;}
 .footer a:hover {background: #7d6546;}
-.tabs .active a {color:#333; background:#fff;}
-.content {clear:left; background: #f7f5e6}
+.tabs .active a {color:#333; background:#f7f5e6;}
 .copy{clear:left;}
 .copy, .tabs a, .footer a, .logo {text-align:center;}
 .tips, .hint, .description {padding:5px 3px;font-size:0.9em;color:#555;}

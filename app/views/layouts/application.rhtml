@@ -6,6 +6,7 @@
   <%= stylesheet_link_tag "style" %>
 </head>
 <body>
+  <div class="container">
   <div class="header">
     <div class="logo"><%= link_to image_tag("kassi.png", :alt => "Kassi Logo"), :controller => "homepage", :action => "index" %>
       <%= link_to "Kassi", :controller => "homepage", :action => "index" %></div>
@@ -43,6 +44,7 @@
     <div class="copy">
       <p>&copy; 2011 Kassi</p>
     </div>
+  </div>
 </div>
 </body>
 </html>
