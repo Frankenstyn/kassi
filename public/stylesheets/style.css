@@ -1,6 +1,6 @@
 .bottomlist {padding:0; margin:0;} .bottomlist li {float:left; list-style:none;}
 html, body, .tabs, .footer, .list {padding:0; margin:0;}
-body {font-family:Tahoma,'Trebuchet MS', Arial, sans-serif;font-size:11px;color:#333;width:100%;}
+body {font-family:Tahoma,'Trebuchet MS', Arial, sans-serif;font-size:11px;color:#333;}
 a {text-decoration: none;}
 a img {border: none;}
 .header {height:50px; background:#254306 url(images/header.png) repeat-x 0 0;}
