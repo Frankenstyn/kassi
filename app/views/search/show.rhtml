@@ -1,0 +1,30 @@
+<div>
+  <div>
+    <%= form_tag({ :action => :show, :controller => :search }, :class => "form", :method => "get") do %>
+      <%= text_field_tag("q", params[:q]) %>
+      <%= submit_tag("Search", :class => "button") %>
+    <% end %>
+  </div>
+  <div><ul class="nav2"><% @type = params[:type] %>
+      <% if @type == "request" %>
+        <li><%= link_to "All", {:controller => :search, :action => :show, :q => params[:q]} %></li>
+        <li><%= link_to "Requests", {:controller => :search, :action => :show, :q => params[:q], :type => "request"}, :class =>"active" %></li>
+        <li><%= link_to "Offers", {:controller => :search, :action => :show, :q => params[:q], :type => "offer"} %></li>
+      <% elsif @type == "offer" %>
+        <li><%= link_to "All", {:controller => :search, :action => :show, :q => params[:q]} %></li>
+        <li><%= link_to "Requests", {:controller => :search, :action => :show, :q => params[:q], :type => "request"} %></li>
+        <li><%= link_to "Offers", {:controller => :search, :action => :show, :q => params[:q], :type => "offer"}, :class =>"active" %></li>
+      <% else %>
+        <li><%= link_to "All", {:controller => :search, :action => :show, :q => params[:q]}, :class =>"active" %></li>
+        <li><%= link_to "Requests", {:controller => :search, :action => :show, :q => params[:q], :type => "request"} %></li>
+        <li><%= link_to "Offers", {:controller => :search, :action => :show, :q => params[:q], :type => "offer"} %></li>
+      <% end %>
+</ul></div>
+  <div>
+    <% if @listings && @listings.size > 0 %>
+      <br/><div class="title"><%= "Search Results " %><%= "(#{@listings.total_entries})" %></div>
+      <%= render :partial => "listings/listed_listing", :collection => @listings, :as => :listing %>
+      <%= will_paginate(@listings) %>
+    <%end%>
+  </div>
+</div>

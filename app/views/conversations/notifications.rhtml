@@ -1,11 +1,10 @@
-<%- if @notifications.empty?%>
+<% if @notifications.empty? %>
 <div id="no_conversations">
-   <%= t(".no_notifications")%>
+   <%= t(".no_notifications") %>
 </div>
-<%- else%>
+<% else %>
 <div id="conversations">
     <%= render :partial => "notification", :collection => @notifications, :as => :notification%>
     <%= will_paginate(@notifications)%>
     <%= pageless(@notifications.total_pages, '#conversations', "#{action_name}", t('.loading_more_notifications'))%>
-</div>
-  <%end%>
+</div><% end %>

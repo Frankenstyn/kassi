@@ -1,30 +1,19 @@
-
-
-<%- last_message = conversation.last_message(@current_user) %>
+<% last_message = conversation.last_message(@current_user) %>
 <div class="conversation <%= (conversation.read_by?(@current_user) ? "" : "unread") %>"  id = "conversation_<%=  conversation.id.to_s %>">
   <table class="table">
-    <tr>
-      <td class="orange" colspan="2">
+    <tr><td class="orange" colspan="2">
         <%= link_to conversation.title, single_conversation_path(:conversation_type => action_name, :id => conversation.id)%>
       </td>
     </tr>
-    <tr >
-      <td style="font-style: italic">
-        <span> <%= l last_message.created_at, :format => :shorter %> </span>
-      </td>
- <td>
-          <%= link_to last_message.sender.name, last_message.sender %>
-        
-      </td>
     <tr>
-      <td colspan="2" class="black">
-        <div >
-          <span ><%= link_to(truncate(last_message.content, :length => 120, :omission => "..."), single_conversation_path(:conversation_type => action_name, :id => conversation.id))%></span>
-        </div>
+      <td style="font-style: italic; font-size: smaller; color: #765d3a"><span><%= l last_message.created_at, :format => :shorter %></span></td>
+      <td><%= link_to last_message.sender.name, last_message.sender %></td>
+    </tr>
+    <tr><td colspan="2" class="black">
+          <span><%= link_to(truncate(last_message.content, :length => 60, :omission => "..."), single_conversation_path(:conversation_type => action_name, :id => conversation.id))%></span>
       </td>
     </tr>
-    </tr>
-    <tr  id ="conversation_<%=  conversation.id.to_s%>_status"  style="font-style: italic; font-weight: bold">
+    <tr style="font-style: italic; font-weight: bold; color: #765d3a">
       <%= render :partial => "status", :locals => { :conversation => conversation } %>
     </tr>
   </table>

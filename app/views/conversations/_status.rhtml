@@ -1,41 +1,32 @@
-<%- if conversation.listing %>
-  <%- if conversation.status.eql?("pending") %>
-    <%- if current_user?(conversation.listing.author) %>
-      <%- ["accept", "reject"].each do |status| %>
-        <td >
+<% if conversation.listing %>
+  <% if conversation.status.eql?("pending") %>
+    <% if current_user?(conversation.listing.author) %>
+      <% ["accept", "reject"].each do |status| %>
+        <td style="font-weight: bold; background:#ede4cc; color: #254306">
           <%= render :partial => "status_link", :locals => { :conversation => conversation, :status => status } %>
         </td>
-
       <% end %>
-    <%- else %>
+    <% else %>
       <td colspan="2">
-        <div class="conversation_status_container">
-          <div  style="font-weight: bold; color: orange" >
-            <%="Awaiting confirmation."%>
+          <div style="font-weight: bold; background:#ede4cc; color: #254306" >
+            <%= "Awaiting confirmation." %>
           </div>
-        </div>
       </td>
     <% end %>
-
-  <%- elsif conversation.status %>
-      <td colspan="2" style="text-align: center; font-style: italic">
-    <div class="conversation_status_container">
-      <div class="conversation_status_label <%=conversation.status %>">
-        <%= t(".#{conversation.discussion_type}_#{conversation.status}") %>
-      </div>
-      <%- if conversation.status.eql?("accepted") %>
-      <div class="green" style="text-align: center">
-          <%- if conversation.has_feedback_from?(@current_user) %>
-            <%= t(".feedback_given") %>
-          <%- else %>
-            <%= link_to t(".give_feedback"), new_person_message_feedback_path(:person_id => @current_user.id, :message_id => conversation.id.to_s) %>
-        
+  <% elsif conversation.status %>
+      <td colspan="2" style="font-style: italic">
+        <div style="font-weight: bold; background:#ede4cc; color: #254306">
+          <%= t(".#{conversation.discussion_type}_#{conversation.status}") %>.
+          <% if conversation.status.eql?("accepted") %>
+            <span style="font-size: smaller;">
+              <% if conversation.has_feedback_from?(@current_user) %>
+                <%= t(".feedback_given") %>
+              <% else %>
+                <%= link_to "Give feedback", new_person_message_feedback_path(:person_id => @current_user.id, :message_id => conversation.id.to_s) %>
+              <% end %>
+            </span>
           <% end %>
-
-        <% end %>
-      </div>
-    </div>
-</td>
+        </div>
+      </td>
   <% end %>
-
 <% end %>
