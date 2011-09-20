@@ -37,7 +37,7 @@ body {
 h1 {
   margin: 0 0 10px 0; }
 
-h3.orange {
+h3.message_header {
   color: #d45207;
   width: 340px;
   display: block;

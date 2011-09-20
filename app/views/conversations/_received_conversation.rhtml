@@ -1,7 +1,7 @@
 <% last_message = conversation.last_message(@current_user) %>
 <div class="conversation <%= (conversation.read_by?(@current_user) ? "" : "unread") %>"  id = "conversation_<%=  conversation.id.to_s %>">
   <table class="table">
-    <tr><td class="orange" colspan="2">
+    <tr><td class="message_header" colspan="2">
         <%= link_to conversation.title, single_conversation_path(:conversation_type => action_name, :id => conversation.id)%>
       </td>
     </tr>

@@ -15,8 +15,13 @@
     <% end %>
   <% elsif conversation.status %>
       <td colspan="2" style="font-style: italic">
-        <div style="font-weight: bold; background:#ede4cc; color: #254306">
-          <%= t(".#{conversation.discussion_type}_#{conversation.status}") %>.
+          <% if conversation.status.eql?("accepted") %>
+            <div style="font-weight: bold; background:#ede4cc; color: green">
+            <%= t(".#{conversation.discussion_type}_#{conversation.status}") %>.
+          <% else %>
+            <div style="font-weight: bold; background:#ede4cc; color: maroon">  
+            <%= t(".#{conversation.discussion_type}_#{conversation.status}") %>.
+          <% end %> 
           <% if conversation.status.eql?("accepted") %>
             <span style="font-size: smaller;">
               <% if conversation.has_feedback_from?(@current_user) %>

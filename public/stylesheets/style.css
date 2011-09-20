@@ -59,8 +59,8 @@ input[type="submit"], button, .button{
   -moz-border-radius: 7px;
   -webkit-border-radius: 7px;
   overflow: hidden;
-  padding: 10px 15px 15px 15px;
-  line-height: 50%; }
+  padding: 10px 15px 15px 5px;
+ }
   .form h2 {
     font-size: 16px;
     font-weight: bold;
@@ -374,8 +374,8 @@ input[type="submit"], button, .button{
     float: left;
     padding-right: 5px;
 }
-.orange a{
-    color:#765d3a;
+.message_header a{
+    color: #000000;
     font-weight: bold;
     text-align: left;
     font-size: 12px;
@@ -478,13 +478,14 @@ font-size: 10px;
 .notifications{	margin-left: 1px;
                 font-weight: bold;}
 #conversations	.unread {
-      background:  #b3a38d;
+    background: #f8f5e2;
 }
 .conversation{
       border-style: ridge;
       border-color: #f0f1c2;
       margin-bottom: 1px;
       color: #e77c13;
+      background:  #f7f5e6;
 }
 #messages {
       margin: 3px 0 2px 0;
@@ -579,23 +580,11 @@ table h1{
   margin: 9px 0 0 25%;
   background: transparent url("/images/icons/header_icons.png") no-repeat; }
 .logged_in_icon_inbox_notifications .logged_in_icon_notification_text {
-width: 9px;
-height: 8px;
--moz-border-radius: 7px;
--webkit-border-radius: 7px;
-background: #d45207;
-margin-left: 15px;
-padding: 1px 2px 2px 1px;
-text-align: center;
-color: white;
-font-size: 8px;
-font-weight: bold; }
+    background-color: white;
+color: white;}
 .logged_in_icon_inbox_notifications .logged_in_icon_notification_text a {
-color: white;
-font-size: 8px;
-font-weight: bold;
-padding: 0;
-margin: 0; }
+    
+color: orange;}
 .logout a {
   font-size: 12px;
   color: #ffffff;
