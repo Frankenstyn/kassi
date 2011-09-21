@@ -20,16 +20,18 @@ Kassi::Application.configure do
   config.action_mailer.raise_delivery_errors = true
   
   # Enable sending mail from localhost
-  ActionMailer::Base.smtp_settings = {
-    :address              => APP_CONFIG.local_email_address,
-    :port                 => APP_CONFIG.local_email_port,
-    :domain               => 'localhost',
-    :user_name            => APP_CONFIG.local_email_user_name,
-    :password             => APP_CONFIG.local_email_password,
-    :authentication       => 'plain',
-    :enable_starttls_auto => true
+  ActionMailer::Base.delivery_method = :sendmail
+
+  # Sending with sendmail
+  ActionMailer::Base.sendmail_settings = {
+    :location  => '/usr/sbin/sendmail',
+    :arguments => '-i -t'
   }
 
-  config.active_support.deprecation = :log
+  #ActionMailer::Base.smtp_settings = {
+    #:address => 'localhost',
+    #:port => 25,
+    #:domain => 'localhost'
+  #}
   
 end
