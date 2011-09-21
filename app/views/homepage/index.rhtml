@@ -1,37 +1,21 @@
-<div style="margin-top: -25px"><% if logged_in? %><h2>Hi <%= link_to @current_user.given_name_or_username, @current_user %></h2>
-    <p class="hint">Welcome to Kassi. Make a new request for something you need or let others know what you can offer by going to the appropriate tab.</p><% else %><h4><% unless logged_in? %>New user? <a href="/<%= I18n.locale  %>/signup">Sign up, </a> otherwise <a href="/<%= I18n.locale  %>/login">Log in.</a><% end %></h4>
-    <p class="hint">Welcome to Kassi. Kassi is a service for the community. Here, you can lend, rend, or buy goods/services.
-    <% end %></p>
-</div><div style="width: 100%"><div class="title">LISTINGS</div><hr class="titlebar"/>
-  <table class="listings_table" style="width: 100%">
-    <tr><th>
-      <div class="recent_listings">
-        <p class="listings_title">REQUESTS</p>
-        <% if @requests.total_entries > 0%>
-          <%= render :partial => "recent_listing", :collection => @requests, :as => :listing, :spacer_template => "request_spacer" %>
-          <%- if @requests.total_pages < 2 && @private_listings && @private_listings["request"].present? && @private_listings["request"] > 0 %>
-            <br/>
-          <% end %>
-        <% else %>
-          <p>No requests</p>
-        <%end%>
-      </div>
-    </th>
-        <%- if @offers.total_entries > 0 %>
-          <th>
-          <div class="recent_listings">
-            <p class="listings_title">OFFERS</p>
-          <%= render :partial => "recent_listing", :collection => @offers, :as => :listing, :spacer_template => "offer_spacer" %>
-          <%- if @offers.total_pages < 2 && @private_listings && @private_listings["offer"].present? && @private_listings["offer"] > 0 %>           
-          <% end %>
-            </div></th>
-        <% end %>      
-    </tr>
-  </table>
-  <% if @requests.total_entries > 0 || @offers.total_entries > 0 %>
-  <div style="text-align: center"><%= @requests.total_entries > @offers.total_entries ? will_paginate(@requests) : will_paginate(@offers) %></div>
-  <% end %>
-</div>
-<div><% unless logged_in? %>
-<%= render :partial => "additional_private_listings_slate",  :locals => {:listing_type => "offer", :private_listings_count_offers =>  @private_listings["offer"], :private_listings_count_requests =>  @private_listings["request"]} %>          
-<% end %></div>
+<% if logged_in? %>
+<h2>Welcome, <%= link_to @current_user.given_name_or_username, @current_user %></h2>
+<p>Make a new request for something you need or let others know what you can offer by going to the appropriate tab.</p>
+<% else %>
+<h1>Welcome to Kassi!</h1>
+<p>Kassi is a community-based service for campuses, cities, companies and associations that makes it easier to sell and buy stuff. Kassi users can offer each other items and services and interested people can purchase the offered items.</p>
+<% end %>
+<h1>Listings</h1>
+<% if (@requests.total_entries <= 0 && @offers.total_entries <= 0) %>
+<p class="ok">There are currently no listings.<% if logged_in? %> Start us off with <a href="/<%= I18n.locale  %>/requests">a request</a> or <a href="/<%= I18n.locale  %>/offers">an offer</a> now!<% end %></p>
+<% else %>
+<ul class="listings">
+    <%= render :partial => "recent_listing", :collection => @requests + @offers, :as => :listing, :spacer_template => "request_spacer" %>
+    <%- if (@requests.total_pages + @offers.total_pages) < 2 && @private_listings && @private_listings["request"].present? && @private_listings["request"] > 0 %>
+    <br/>
+    <% end %>
+</ul>
+<% if @requests.total_entries > 0 || @offers.total_entries > 0 %>
+<div style="text-align: center"><%= @requests.total_entries > @offers.total_entries ? will_paginate(@requests) : will_paginate(@offers) %></div>
+<% end %>
+<%end%>

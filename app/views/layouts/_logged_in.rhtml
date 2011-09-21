@@ -1,3 +1,5 @@
-<center><%= render :partial => "layouts/logged_in_messages_icon"%>
-<%= render :partial => "layouts/logged_in_notifications_icon" %>
-<a href="<%= person_settings_path(:person_id => @current_user.id) %>" title="Settings"><%= image_tag "icons/set.png" %></a></center>
+<ul class="nav">
+<li><a href="/people/<%=  @current_user.id %>/messages/received" title="messages">Msgs. <% if Conversation.unread_count(@current_user.id) > 0 %>(<%= Conversation.unread_count(@current_user.id).to_s %>)<% end %></a></li>
+<li><a href="/people/<%=  @current_user.id %>/messages/notifications" title="notifications">Notifs. <% if @current_user.notifications.unread.count > 0 %>(<%= @current_user.notifications.unread.count.to_s %>)<% end %></a></li>
+<li><a href="<%= person_settings_path(:person_id => @current_user.id) %>" title="Settings">Settings</a></li>
+</ul>

@@ -5,7 +5,5 @@
        <%= link_to Conversation.unread_count(@current_user.id).to_s, received_person_messages_path(:person_id => @current_user.id), :title => "Messages" %>
     </div></div></a>
 <% else %><a href='/people/<%=  @current_user.id%>/messages/received' title="messages">
-<div class="logged_in_icon_inbox_notifications"></div></a><% end %>
-
-
-
+<div class="logged_in_icon_inbox_notifications"></div></a>
+<% end %>
