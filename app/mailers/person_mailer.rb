@@ -14,7 +14,7 @@ class PersonMailer < ActionMailer::Base
     @url = host ? "http://#{host}/#{@recipient.locale}#{person_message_path(:person_id => @recipient.id, :id => message.conversation.id.to_s)}" : "test_url"
     @message = message
     alert_if_erroneus_host(host, @url)
-    AsismsHelper.send(t("sms.new_message.you_have_a_new_message", :url => @url), @recipient.phone_number)
+    AsismsHelper.send(t("sms.new_message.you_have_a_new_message" , :name => @recipient.name, :url => @url), @recipient.phone_number)
     mail(:to => @recipient.email,
       :subject => t("emails.new_message.you_have_a_new_message"))
   end
@@ -24,7 +24,7 @@ class PersonMailer < ActionMailer::Base
     @url = host ? "http://#{host}/#{@recipient.locale}#{listing_path(:id => comment.listing.id.to_s)}" : "test_url"
     @comment = comment
     alert_if_erroneus_host(host, @url)
-    AsismsHelper.send(t("sms.new_comment.you_have_a_new_comment", :url => @url), @recipient.phone_number)
+    AsismsHelper.send(t("sms.new_comment.you_have_a_new_comment" , :name => @recipient.name , :url => @url), @recipient.phone_number)
     mail(:to => @recipient.email,
       :subject => t("emails.new_comment.you_have_a_new_comment", :author => comment.author.name))
   end
@@ -34,7 +34,7 @@ class PersonMailer < ActionMailer::Base
     @url = host ? "http://#{host}/#{@recipient.locale}#{person_message_path(:person_id => @recipient.id, :id => conversation.id.to_s)}" : "test_url"
     @conversation = conversation
     alert_if_erroneus_host(host, @url)
-    AsismsHelper.send(t("sms.new_conversation_status.you_have_a_new_conversation_status", :url => @url), @recipient.phone_number)
+    AsismsHelper.send(t("sms.new_conversation_status.you_have_a_new_conversation_status", :name => @recipient.name ,:url => @url), @recipient.phone_number)
     mail(:to => @recipient.email,
       :subject => t("emails.conversation_status_changed.your_#{Listing.opposite_type(conversation.listing.listing_type)}_was_#{conversation.status}"))
   end
