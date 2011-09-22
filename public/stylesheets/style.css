@@ -36,16 +36,18 @@ p {margin: 5px 0;}
 .errors {background:#ff9 url(icons/warning.png) no-repeat 1px 1px;}
 .ok {background:#dfc url(icons/accept.png) no-repeat 1px 1px;}
 .right{float:right;}
-.framed, .listings img {border:1px #abc solid;padding:1px;background: #fff;}
+.framed, .listings img {border:1px #abc solid;padding:1px;background: #fff;height:40px;width:40px;}
 .listings {border-top: 1px #ddd solid;}
 .listings li {border-bottom: 1px #ddd solid;list-style: none;padding:3px 0;}
 .listings p {margin:0;}
-.listings img {height:40px;width:40px;}
 .listings .offer {background: #f7f5e6;}
 .listings .request {background: #fff;}
-.listings .image {width: 44px;float:left;margin-right: 3px;}
+.listings .image {width: 44px;height: 44px;float:left;margin-right: 3px;}
 .listings .titl {font-weight: bold; color: #375e11;}
 .listings .meta {clear:both;padding-top: 3px;}
+.textual img {height:28px;width:28px;}
+.textual .image {width: 32px;height: 32px;}
+.textual .meta {clear:none;font-size:1em;}
 .meta{color:#555;font-size:0.9em;font-style:italic;}
 
 

@@ -26,12 +26,16 @@ class ListingsController < ApplicationController
   def requests
     params[:listing_type] = "request"
     @to_render = {:action => :index}
+    @listings_per_page = 5
+    @listings = Listing.requests.visible_to(@current_user, @current_community).open.paginate(:per_page => @listings_per_page, :page => params[:page], :order => "created_at DESC")
     load
   end
   
   def offers
     params[:listing_type] = "offer"
     @to_render = {:action => :index}
+    @listings_per_page = 5
+    @listings = Listing.offers.visible_to(@current_user, @current_community).open.paginate(:per_page => @listings_per_page, :page => params[:page], :order => "created_at DESC")
     load
   end
   
@@ -54,11 +58,13 @@ class ListingsController < ApplicationController
   end
   
   def show
+    params[:listing_type] = @listing.listing_type
     @listing.increment!(:times_viewed)
   end
   
   def new
     @listing = Listing.new
+    params[:listing_type] = params[:type]
     @listing.listing_type = params[:type]
     @listing.category = params[:category] || "housing"
     1.times { @listing.listing_images.build }
