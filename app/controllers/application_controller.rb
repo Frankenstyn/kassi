@@ -12,6 +12,8 @@ class ApplicationController < ActionController::Base
   
   helper_method :root, :logged_in?, :current_user?
   
+  MOBILE_BROWSERS = ["android", "ipod", "opera mini", "blackberry", "palm","hiptop","avantgo","plucker", "xiino","blazer","elaine", "windows ce; ppc;", "windows ce; smartphone;","windows ce; iemobile", "up.browser","up.link","mmp","symbian","smartphone", "midp","wap","vodafone","o2","pocket","kindle", "mobile","pda","psp","treo"]
+  before_filter :detect_browser
   def set_locale
     locale = logged_in? ? @current_user.locale : params[:locale]
     
@@ -213,6 +215,20 @@ class ApplicationController < ActionController::Base
       flash[:error] = "only_kassi_administrators_can_access_this_area"
       redirect_to root and return
     end
+  end 
+
+  def detect_browser
+    agent = request.headers["HTTP_USER_AGENT"].downcase
+    MOBILE_BROWSERS.each do |m|
+      return true if agent.match(m)
+    end
+    #sample way to deal with the redirects
+    #redirect_to :host => "kassi.main.nairobisizzle.com", :controller => "homepage"
+    set_main_site_views
+  end
+  def set_main_site_views
+  #tentative views path
+  prepend_view_path Rails.root + "app" + "pc_site"
   end
   
 end
