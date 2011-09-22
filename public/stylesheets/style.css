@@ -5,8 +5,8 @@ body {font-family:Tahoma, Verdana, Arial, sans-serif;font-size:11px;color:#333;}
 a {text-decoration: none;color: #d45207}
 a:hover {text-decoration: underline}
 a img {border: none;}
-h1 {color: #555;font-size: 1.3em;margin:2px 0 3px 0;font-variant: small-caps;}
-h2 {color: #555;font-size: 1.2em;margin:2px 0 3px 0;}
+h1, h2 {color: #555;font-size: 1.2em;margin:2px 0 3px 0;clear:both;}
+h1 {font-size: 1.3em;font-variant: small-caps;}
 p {margin: 5px 0;}
 .container {min-height: 100%; position: relative;}
 .header {height:50px; background:#254306 url(images/header.png) repeat-x 0 0;}
@@ -18,6 +18,7 @@ p {margin: 5px 0;}
 .left, .tabs li, .list li, .nav li {float:left;}
 .tabs li, .footer li, .list li, .nav li {list-style:none;}
 .tabs li, .footer li, .nav li {width:33%;}
+.wider li {width:50%;}
 .tabs a, .footer a, .nav a {display:block; padding:3px 0; color:#fff; height:15px;}
 .footer a {padding: 3px 0 3px 2px;}
 .footer a:hover {background: #7d6546;text-decoration: none;}
