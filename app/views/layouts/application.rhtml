@@ -13,21 +13,21 @@
       <ul class="tabs"><% @title = params[:listing_type]; %>
         <% if @title == "request" %>
           <li><%= link_to "Home", :controller => "homepage", :action => "index" %></li>
-          <li class="active <% if logged_in? %>with_nav<% end %>"><a href="/<%= I18n.locale  %>/requests">Requests</a></li>
+          <li class="active with_nav"><a href="/<%= I18n.locale  %>/requests">Requests</a></li>
           <li><a href="/<%= I18n.locale  %>/offers">Offers</a></li>
         <% elsif @title == "offer" %>
           <li><%= link_to "Home", :controller => "homepage", :action => "index" %></li>
           <li><a href="/<%= I18n.locale  %>/requests">Requests</a></li>
-          <li class="active <% if logged_in? %>with_nav<% end %>"><a href="/<%= I18n.locale  %>/offers">Offers</a></li>
+          <li class="active with_nav"><a href="/<%= I18n.locale  %>/offers">Offers</a></li>
         <% else %>
-          <li class="active <% if logged_in? %>with_nav<% end %>"><%= link_to "Home", :controller => "homepage", :action => "index" %></li>
+          <li class="active with_nav"><%= link_to "Home", :controller => "homepage", :action => "index" %></li>
           <li><a href="/<%= I18n.locale  %>/requests">Requests</a></li>
           <li><a href="/<%= I18n.locale  %>/offers">Offers</a></li>
         <% end %>
       </ul>
     </div>
     <div class="content">
-        <% if logged_in? %><%= render :partial => "layouts/logged_in" %><% end %>
+        <% if logged_in? %><%= render :partial => "layouts/logged_in" %><% else %><%= render :partial => "layouts/not_logged_in" %><% end %>
         <%= content_for?(:content) ? yield(:content) : yield %>
     </div>
     <div class="footer">
