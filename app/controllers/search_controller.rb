@@ -19,7 +19,7 @@ class SearchController < ApplicationController
       @listings = Listing.search(@query, 
                                 :include => :listing_images, 
                                 :page => params[:page],
-                                :per_page => 15, 
+                                :per_page => 5, 
                                 :star => true,
                                 :with => with
                                 )

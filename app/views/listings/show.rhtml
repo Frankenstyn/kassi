@@ -2,8 +2,10 @@
 <% unless @listing.listing_images.empty? %><div>
 <% @listing.listing_images.each do |listing_image| %>
 <%= link_to image_tag(listing_image.image.url(:medium), :alt => @listing.title, :width => "140", :height => "100"), {:controller => "listings", :action => "show",:show => "true" } %>
-</div><br/><% end %><%= button_to "Remove image", listing_image_path(@listing, @listing.listing_images.first), :method => :delete, :remote => true %> | <% end %>
+</div><br/><% end %><% end %>
 <% if current_user?(@listing.author) || (@current_user && @current_user.is_admin?) %>
+<%= button_to "Remove image", listing_image_path(@listing, @listing.listing_images.first), :method => :delete, :remote => true %> | 
+<% end %><% if current_user?(@listing.author) || (@current_user && @current_user.is_admin?) %>
 <%= render :partial => "edit_links" %>
 <% end %>
 <h1><%= @listing.title %></h1>

@@ -20,10 +20,18 @@ Kassi::Application.configure do
   config.action_mailer.raise_delivery_errors = true
   
   # Enable sending mail from localhost
-  ActionMailer::Base.smtp_settings = {
-    :address => 'smtp.hut.fi', #if needed change to own smtp server
-    :port => 25,
-    :domain => 'cos.alpha.sizl.org'
+  ActionMailer::Base.delivery_method = :sendmail
+
+  # Sending with sendmail
+  ActionMailer::Base.sendmail_settings = {
+    :location  => '/usr/sbin/sendmail',
+    :arguments => '-i -t'
   }
+
+  #ActionMailer::Base.smtp_settings = {
+    #:address => 'localhost',
+    #:port => 25,
+    #:domain => 'localhost'
+  #}
   
 end

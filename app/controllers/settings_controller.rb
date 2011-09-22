@@ -9,22 +9,24 @@ class SettingsController < ApplicationController
   end
   
   def show
+    @type = "profile"
     render :action => :profile
   end
   
   def profile
-    
+    @type = "profile"
   end
   
   def avatar
-    
+    @type = "avatar"
   end
   
   def account
-    
+    @type = "account"
   end
 
   def notifications
+    @type = "notifications"
   end
 
 end

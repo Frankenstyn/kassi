@@ -1,4 +1,4 @@
-<div class="conversation_status_link <%= "#{status}" %>">
-  <%- path = status.eql?("accept") ? accept_person_message_path(:person_id => @current_user.id, :id => conversation.id.to_s) : reject_person_message_path(:person_id => @current_user.id, :id => conversation.id.to_s)%>
-  <%= link_to(image_tag("/images/icons/#{status}_icon.png") + t(".#{status}_#{conversation.discussion_type}"), path, :remote => true, :method => :put) %>
+<div>
+  <% path = status.eql?("accept") ? accept_person_message_path(:person_id => @current_user.id, :id => conversation.id.to_s) : reject_person_message_path(:person_id => @current_user.id, :id => conversation.id.to_s) %>
+  <%= button_to(t(".#{status}_#{conversation.discussion_type}"), path, :remote => true, :method => :put, :class => "link") %>
 </div>

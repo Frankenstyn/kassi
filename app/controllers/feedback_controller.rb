@@ -15,6 +15,7 @@ class FeedbackController < ApplicationController
       else
         flash.now[:notice] = "feedback_saved"
       end
+      PersonMailer.new_feedback(@feedback, @current_community).deliver
     else
       if error_page
         flash[:error] = "feedback_not_saved"
