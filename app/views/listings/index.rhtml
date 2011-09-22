@@ -1,18 +1,57 @@
-<% unless logged_in? %><a class="button" href="/<%= I18n.locale  %>/signup">Sign up</a> | <a class="button" href="/<%= I18n.locale  %>/login">Log in</a><% end %></p>
-<div class="description">Select a category to view the corresponding <%= @title %>s or select <%= image_tag("new.png", :alt => "New", :width => "10", :heigth => "10") %> to add new <%= @title %></div>
-<br/><div class="title"><%= @title.upcase + "S" %></div><hr class="titlebar"/>
-<table class="vertical-image" style="width: 100%">
-<tr><th><%= link_to image_tag("house.jpeg", :alt => "Accomodation"), :controller => "listings", :action => "load", :category => ["housing"], :listing_type => @title, :share_type => ["all"] %></th><th>&nbsp;&nbsp;</th>
-<th><%= link_to image_tag("phone.jpg", :alt => "Phones"), :controller => "listings", :action => "load", :category => ["phones"], :listing_type => @title, :share_type => ["all"] %></th></tr>  
-<tr><td>Accomodation<%= link_to image_tag("new.png", :alt => "New"), { :controller => "listings", :action => "new", :category => "housing", :type => @title }, :class => "icon" %></td><td>&nbsp;&nbsp;</td>
-<td>Phones<%= link_to image_tag("new.png", :alt => "New"), { :controller => "listings", :action => "new", :category => "phones", :type => @title }, :class => "icon" %></td></tr>
-<tr><th><%= link_to image_tag("entertainment.png", :alt => "Entertainment"), :controller => "listings", :action => "load", :category => ["entertainment"], :listing_type => @title, :share_type => ["all"] %></th><th>&nbsp;&nbsp;</th>
-<th><%= link_to image_tag("services.png", :alt => "Services"), :controller => "listings", :action => "load", :category => ["services"], :listing_type => @title, :share_type => ["all"] %></th></tr>
-<tr><td>Entertainment<%= link_to image_tag("new.png", :alt => "New"), { :controller => "listings", :action => "new", :category => "entertainment", :type => @title }, :class => "icon" %></td><td>&nbsp;&nbsp;</td>
-<td>Services<%= link_to image_tag("new.png", :alt => "New"), { :controller => "listings", :action => "new", :category => "services", :type => @title }, :class => "icon" %></td></tr>
-<tr><th><%= link_to image_tag("computers.png", :alt => "Computer Stuff"), :controller => "listings", :action => "load", :category => ["computer"], :listing_type => @title, :share_type => ["all"] %></th><th>&nbsp;&nbsp;</th>
-<th><%= link_to image_tag("other.png", :alt => "Other"), :controller => "listings", :action => "load", :category => ["other"], :listing_type => @title, :share_type => ["all"] %></th></tr>
-<tr><td>Computer Stuff<%= link_to image_tag("new.png", :alt => "New"), { :controller => "listings", :action => "new", :category => "computer", :type => @title }, :class => "icon" %></td><td>&nbsp;&nbsp;</td>
-<td>Other<%= link_to image_tag("new.png", :alt => "New"), { :controller => "listings", :action => "new", :category => "other", :type => @title }, :class => "icon" %></td></tr>
-</table><br/>
-<% unless logged_in? %><a class="button" href="/<%= I18n.locale  %>/signup">Sign up</a> | <a class="button" href="/<%= I18n.locale  %>/login">Log in</a><% end %>
+<h1><%= @title == "offer" ? "Offers" : "Requests" %></h1>
+<% if @listings.total_entries <= 0 %>
+<p class="ok">There are currently no <%= @title == "offer" ? "offers" : "requests" %>.<% if logged_in? %> You can start us off with adding a <%= @title %> below!<% end %></p>
+<% else %>
+<ul class="listings">
+    <%= render :partial => "homepage/recent_listing", :collection => @listings, :as => :listing %>
+    <%- if @listings.total_pages < 2 && @private_listings && @private_listings["request"].present? && @private_listings["request"] > 0 %>
+    <br/>
+    <% end %>
+</ul>
+<% if @listings.total_entries > @listings_per_page %><p><%= will_paginate @listings %></p><% end %>
+<% end %>
+<h2><%= @title == "offer" ? "Offer" : "Request" %> categories</h2>
+<ul class="listings textual">
+<li>
+    <div class="image"><%= link_to image_tag("house.jpeg", :alt => "Accomodation"), :controller => "listings", :action => "load", :category => ["housing"], :listing_type => @title, :share_type => ["all"] %></div>
+    <div>
+        <p><%= link_to "Accomodation", { :controller => "listings", :action => "load", :category => "housing", :listing_type => @title, :share_type => "all" }, :class => 'titl' %> &minus; Rentals, housing for sale, hostels, e.t.c</p>
+        <p class="meta"><%= link_to "Add", { :controller => "listings", :action => "new", :category => "housing", :type => @title } %> | <%= link_to "View all", { :controller => "listings", :action => "load", :category => "other", :listing_type => @title, :share_type => "all" } %></p>
+    </div>
+</li>
+<li>
+    <div class="image"><%= link_to image_tag("services.png", :alt => "Services"), :controller => "listings", :action => "load", :category => ["services"], :listing_type => @title, :share_type => ["all"] %></div>
+    <div>
+        <p><%= link_to "Services", { :controller => "listings", :action => "load", :category => "services", :listing_type => @title, :share_type => "all" }, :class => 'titl' %> &minus; Software development, repairs, assignments, e.t.c</p>
+        <p class="meta"><%= link_to "Add", { :controller => "listings", :action => "new", :category => "services", :type => @title } %> | <%= link_to "View all", { :controller => "listings", :action => "load", :category => "services", :listing_type => @title, :share_type => "all" } %></p>
+    </div>
+</li>
+<li>
+    <div class="image"><%= link_to image_tag("computers.png", :alt => "Computers Accessories"), :controller => "listings", :action => "load", :category => ["computers"], :listing_type => @title, :share_type => ["all"] %></div>
+    <div>
+        <p><%= link_to "Computers & Accessories", { :controller => "listings", :action => "load", :category => "computers", :listing_type => @title, :share_type => "all" }, :class => 'titl' %> &minus; Computers and accessories</p>
+        <p class="meta"><%= link_to "Add", { :controller => "listings", :action => "new", :category => "computers", :type => @title } %> | <%= link_to "View all", { :controller => "listings", :action => "load", :category => "computers", :listing_type => @title, :share_type => "all" } %></p>
+    </div>
+</li>
+<li>
+    <div class="image"><%= link_to image_tag("phone.jpg", :alt => "Phones"), :controller => "listings", :action => "load", :category => ["phones"], :listing_type => @title, :share_type => ["all"] %></div>
+    <div>
+        <p><%= link_to "Phones", { :controller => "listings", :action => "load", :category => "phones", :listing_type => @title, :share_type => "all" }, :class => 'titl' %> &minus; Phones, phones, phones!</p>
+        <p class="meta"><%= link_to "Add", { :controller => "listings", :action => "new", :category => "phones", :type => @title } %> | <%= link_to "View all", { :controller => "listings", :action => "load", :category => "phones", :listing_type => @title, :share_type => "all" } %></p>
+    </div>
+</li>
+<li>
+    <div class="image"><%= link_to image_tag("entertainment.png", :alt => "Entertainment"), :controller => "listings", :action => "load", :category => ["entertainment"], :listing_type => @title, :share_type => ["all"] %></div>
+    <div>
+        <p><%= link_to "Entertainment", { :controller => "listings", :action => "load", :category => "entertainment", :listing_type => @title, :share_type => "all" }, :class => 'titl' %> &minus; Movies, music, games and others!</p>
+        <p class="meta"><%= link_to "Add", { :controller => "listings", :action => "new", :category => "entertainment", :type => @title } %> | <%= link_to "View all", { :controller => "listings", :action => "load", :category => "entertainment", :listing_type => @title, :share_type => "all" } %></p>
+    </div>
+</li>
+<li>
+    <div class="image"><%= link_to image_tag("other.png", :alt => "Other"), :controller => "listings", :action => "load", :category => ["other"], :listing_type => @title, :share_type => ["all"] %></div>
+    <div>
+        <p><%= link_to "Other", { :controller => "listings", :action => "load", :category => "other", :listing_type => @title, :share_type => "all" }, :class => 'titl' %> &minus; Any other kind of request or offer.</p>
+        <p class="meta"><%= link_to "Add", { :controller => "listings", :action => "new", :category => "other", :type => @title } %> | <%= link_to "View all", { :controller => "listings", :action => "load", :category => "other", :listing_type => @title, :share_type => "all" } %></p>
+    </div>
+</li>
+</ul>
