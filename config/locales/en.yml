@@ -746,6 +746,16 @@ en:
     payment_delivered: "Payment of %{amount} euros is delivered to %{receiver}. You'll be paying %{amount_plus_commission} euros in your phone bill."
     category_not_supported: "This category not yet supported by sms."
     listing_created: "Thank you for the message, a listing is now added to Kassi."
+    new_comment:
+      you_have_a_new_comment: "Someone has commented on your listing in Kassi: %{url}"
+    new_message:
+      you_have_a_new_message: "Someone has sent you a message in Kassi: %{url}"
+    new_conversation_status:
+      you_have_a_new_conversation_status: "Someone has changed the status of your conversation in Kassi: %{url}"
+    new_testimonial:
+      has_given_you_feedback_in_kassi: "%{name} has given you feedback in Kassi: %{url}"
+    testimonial_reminder: "Remember to give feedback to %{name} in Kassi: %{url}"
+
   timestamps:
     seconds_ago: "seconds ago"
     minute_ago:  "minute ago"

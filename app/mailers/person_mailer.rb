@@ -14,8 +14,9 @@ class PersonMailer < ActionMailer::Base
     @url = host ? "http://#{host}/#{@recipient.locale}#{person_message_path(:person_id => @recipient.id, :id => message.conversation.id.to_s)}" : "test_url"
     @message = message
     alert_if_erroneus_host(host, @url)
+    AsismsHelper.send(t("sms.new_message.you_have_a_new_message", :url => @url), @recipient.phone_number)
     mail(:to => @recipient.email,
-         :subject => t("emails.new_message.you_have_a_new_message"))
+      :subject => t("emails.new_message.you_have_a_new_message"))
   end
   
   def new_comment_to_own_listing_notification(comment, host=nil)
@@ -23,8 +24,9 @@ class PersonMailer < ActionMailer::Base
     @url = host ? "http://#{host}/#{@recipient.locale}#{listing_path(:id => comment.listing.id.to_s)}" : "test_url"
     @comment = comment
     alert_if_erroneus_host(host, @url)
+    AsismsHelper.send(t("sms.new_comment.you_have_a_new_comment", :url => @url), @recipient.phone_number)
     mail(:to => @recipient.email,
-         :subject => t("emails.new_comment.you_have_a_new_comment", :author => comment.author.name))
+      :subject => t("emails.new_comment.you_have_a_new_comment", :author => comment.author.name))
   end
   
   def conversation_status_changed(conversation, host=nil)
@@ -32,8 +34,9 @@ class PersonMailer < ActionMailer::Base
     @url = host ? "http://#{host}/#{@recipient.locale}#{person_message_path(:person_id => @recipient.id, :id => conversation.id.to_s)}" : "test_url"
     @conversation = conversation
     alert_if_erroneus_host(host, @url)
+    AsismsHelper.send(t("sms.new_conversation_status.you_have_a_new_conversation_status", :url => @url), @recipient.phone_number)
     mail(:to => @recipient.email,
-         :subject => t("emails.conversation_status_changed.your_#{Listing.opposite_type(conversation.listing.listing_type)}_was_#{conversation.status}"))
+      :subject => t("emails.conversation_status_changed.your_#{Listing.opposite_type(conversation.listing.listing_type)}_was_#{conversation.status}"))
   end
   
   def new_badge(badge, host=nil)
@@ -43,7 +46,7 @@ class PersonMailer < ActionMailer::Base
     @badge_name = t("people.profile_badge.#{@badge.name}")
     alert_if_erroneus_host(host, @url)
     mail(:to => @recipient.email,
-         :subject => t("emails.new_badge.you_have_achieved_a_badge", :badge_name => @badge_name))
+      :subject => t("emails.new_badge.you_have_achieved_a_badge", :badge_name => @badge_name))
   end
   
   def new_testimonial(testimonial, host=nil)
@@ -52,8 +55,9 @@ class PersonMailer < ActionMailer::Base
     @give_feedback_url = host ? "http://#{host}/#{@recipient.locale}#{new_person_message_feedback_path(:person_id => @recipient.id, :message_id => testimonial.participation.conversation.id)}" : "test_url"
     @testimonial = testimonial
     alert_if_erroneus_host(host, @url)
+    AsismsHelper.send(t("sms.new_testimonial.has_given_you_feedback_in_kassi", :url => @url,:name=>@testimonial.author.name), @recipient.phone_number)
     mail(:to => @recipient.email,
-         :subject => t("emails.new_testimonial.has_given_you_feedback_in_kassi", :name => @testimonial.author.name))
+      :subject => t("emails.new_testimonial.has_given_you_feedback_in_kassi", :name => @testimonial.author.name))
   end
   
   def testimonial_reminder(participation, host=nil)
@@ -62,8 +66,9 @@ class PersonMailer < ActionMailer::Base
     @participation = participation
     @other_party = @participation.conversation.other_party(@participation.person)
     alert_if_erroneus_host(host, @url)
+    AsismsHelper.send(t("sms.testimonial_reminder.remember_to_give_feedback_to", :url => @url,:name=>@otherparty.name), @recipient.phone_number)
     mail(:to => @recipient.email,
-         :subject => t("emails.testimonial_reminder.remember_to_give_feedback_to", :name => @other_party.name))
+      :subject => t("emails.testimonial_reminder.remember_to_give_feedback_to", :name => @other_party.name))
   end
   
   # Used to send notification to Kassi admins when somebody
@@ -117,7 +122,7 @@ class PersonMailer < ActionMailer::Base
     @url = host ? "http://#{host}/#{@recipient.locale}#{person_message_path(:person_id => @recipient.id, :id => @conversation.id.to_s)}" : "test_url"
     alert_if_erroneus_host(host, @url)
     mail(:to => @recipient.email,
-         :subject => t("emails.accept_reminder.remember_to_accept_#{@conversation.discussion_type}"))
+      :subject => t("emails.accept_reminder.remember_to_accept_#{@conversation.discussion_type}"))
   end
   
   private
