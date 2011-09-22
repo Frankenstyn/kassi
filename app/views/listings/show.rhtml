@@ -1,22 +1,42 @@
-<% show = params[:show] %><% unless show == "true" %>
-<% unless @listing.listing_images.empty? %><div>
-<% @listing.listing_images.each do |listing_image| %>
-<%= link_to image_tag(listing_image.image.url(:medium), :alt => @listing.title, :width => "140", :height => "100"), {:controller => "listings", :action => "show",:show => "true" } %>
-</div><br/><% end %><% end %>
-<% if current_user?(@listing.author) || (@current_user && @current_user.is_admin?) %>
-<%= button_to "Remove image", listing_image_path(@listing, @listing.listing_images.first), :method => :delete, :remote => true %> | 
-<% end %><% if current_user?(@listing.author) || (@current_user && @current_user.is_admin?) %>
-<%= render :partial => "edit_links" %>
+<% show = params[:show] %>
+<% unless show == "true" %>
+    <% @can_remove = false; @listing_image = @listing.listing_images.empty? ? false : @listing.listing_images.first %>
+    <% if current_user?(@listing.author) || (@current_user && @current_user.is_admin?) %>
+        <% if @listing_image %><% @can_remove = true %><% end %>
+        <ul class="nav <% if !@listing.closed? %> wider <% end %>">
+            <% if @listing.closed? %>
+                <li style="width:100%;"><%= link_to "Reopen", edit_listing_path(@listing) %></li>
+            <% else %>
+                <li><%= link_to "Edit #{@listing.listing_type}", edit_listing_path(@listing) %></li>
+                <li><%= button_to "Close #{@listing.listing_type}", close_person_listing_path(@current_user, @listing), :method => :put, :class => "link" %></li>
+            <% end %>
+        </ul>
+    <% end %>
+    <h2><%= @listing.title %></h2>
+    <div class="listing">
+        <% if @listing_image %>
+        <div class="image">
+            <%= link_to image_tag(@listing_image.image.url(:medium), :alt => @listing.title, :width => "140", :height => "100"), {:controller => "listings", :action => "show", :show => "true" } %>
+        </div>
+        <% end %>
+        <div class="meta">
+            <div><%= @listing.listing_type == "offer" ? "Offered" : "Requested" %> in <% @listing.share_types.collect do |st| %><%= st.name %><% end %> under <%= link_to @listing.category, { :controller => "listings", :action => "load", :category => ["#{@listing.category}"], :listing_type => @listing.listing_type, :share_type => ["all"] } %> by <%= link_to @listing.author.given_name_or_username, @listing.author, :title => "#{@listing.author.name}'s profile" %></div>
+            <p><%= time_ago(@listing.created_at) %></p>
+            <div>Viewed <%= pluralize(@listing.times_viewed.to_s, "time", "times") %></div>
+            <% if @can_remove %>
+            <p><%= button_to "Remove image", listing_image_path(@listing, @listing.listing_images.first), :method => :delete, :remote => true, :class => "link" %></p>
+            <% end %>
+        </div>
+        <h3>Description</h3>
+        <p><%= @listing.description %></p>
+        <% render :partial => "reply_link" %>
+        <h3>Comments (<%= @listing.comments.count %>)</h3>
+        <p><%= render :partial => "comment", :collection => @listing.comments %><%= render :partial => "comment_form" %></p>
+    </div>
+<% else %>
+    <% @listing.listing_images.each do |listing_image| %><br/>
+        <%= image_tag(listing_image.image.url(:original), :alt => @listing.title, :class => "framed" ) %>
+        <br/>
+    <% end %>
+    <p><%= link_to "Back", @listing %></p>
 <% end %>
-<h1><%= @listing.title %></h1>
-<label style="font-weight: bolder; font-size: larger">Description: </label><br/><%= @listing.description %><br/><br/>
-<label style="font-weight: bolder; font-size: larger">Sub category: </label>
-<% @listing.share_types.collect do |st| %><%= st.name.titleize %><% end %><br/><br/>
-<label style="font-weight: bolder; font-size: larger">Viewed: </label> <%= pluralize(@listing.times_viewed.to_s, "time", "times") %><br/><br/>            
-<label style="font-weight: bolder; font-size: larger">Requested by: </label> <%= link_to @listing.author.name, @listing.author, :title => "listing_author" %><br/><br/>
-<label style="font-weight: bolder; font-size: larger">Created: </label> <%= l(@listing.created_at, :format => :short) %> 
-<% render :partial => "reply_link" %>
-<h3><%= image_tag "/images/icons/comment_icon.png" %>Comments (<%= @listing.comments.count %>)</h3>
-<%= render :partial => "comment", :collection => @listing.comments %>
-<%= render :partial => "comment_form" %><% else %><% @listing.listing_images.each do |listing_image| %><br/>
-<%= image_tag(listing_image.image.url(:original), :alt => @listing.title) %><br/><% end %><% end %>
