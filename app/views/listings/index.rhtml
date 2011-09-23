@@ -4,18 +4,16 @@
 <% else %>
 <ul class="listings noshade">
     <%= render :partial => "homepage/recent_listing", :collection => @listings, :as => :listing %>
-    <%- if @listings.total_pages < 2 && @private_listings && @private_listings["request"].present? && @private_listings["request"] > 0 %>
-    <br/>
-    <% end %>
+    <%- if @listings.total_pages < 2 && @private_listings && @private_listings["request"].present? && @private_listings["request"] > 0 %><p></p><% end %>
 </ul>
 <% if @listings.total_entries > @listings_per_page %><p><%= will_paginate @listings %></p><% end %>
 <% end %>
 <h2><%= @title == "offer" ? "Offer" : "Request" %> categories</h2>
 <ul class="listings textual">
 <li>
-    <div class="image"><%= link_to image_tag("house.jpeg", :alt => "Accomodation"), :controller => "listings", :action => "load", :category => ["housing"], :listing_type => @title, :share_type => ["all"] %></div>
+    <div class="image"><%= link_to image_tag("house.jpeg", :alt => "Housing"), :controller => "listings", :action => "load", :category => ["housing"], :listing_type => @title, :share_type => ["all"] %></div>
     <div>
-        <p><%= link_to "Accomodation", { :controller => "listings", :action => "load", :category => ["housing"], :listing_type => @title, :share_type => ["all"] }, :class => 'titl' %> &minus; Rentals, housing for sale, hostels, e.t.c</p>
+        <p><%= link_to "Housing", { :controller => "listings", :action => "load", :category => ["housing"], :listing_type => @title, :share_type => ["all"] }, :class => 'titl' %> &minus; Rentals, houses for sale, hostels, e.t.c</p>
         <p class="meta"><%= link_to "Add", { :controller => "listings", :action => "new", :category => "housing", :type => @title } %> | <%= link_to "View all", { :controller => "listings", :action => "load", :category => ["housing"], :listing_type => @title, :share_type => ["all"] } %></p>
     </div>
 </li>

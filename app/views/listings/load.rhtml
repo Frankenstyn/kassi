@@ -1,8 +1,9 @@
+<h1><%= params[:category][0] %></h1>
 <% if @listings.size > 0 %>
-  <%= render :partial => "listings/listed_listing", :collection => @listings, :as => :listing%>
-  <%= pageless(@listings.total_pages, '#search_results', @request_path, t(".loading_more_#{@title}s")) %>
-<%else%>
-  <% if params[:listing_type]%>
-<p class="description">No <%= params[:listing_type] %>s with the conditions you gave. 
-  <%= link_to Listing.opposite_type(params[:listing_type]).capitalize! + " something", { :controller => "listings", :action => "new", :category => params[:category][0], :type => Listing.opposite_type(params[:listing_type]) } %>  
-</p><%end%><%end%>
+    <ul class="listings noshade">
+        <%= render :partial => "homepage/recent_listing", :collection => @listings, :as => :listing %>
+        <%- if @listings.total_pages < 2 && @private_listings && @private_listings["request"].present? && @private_listings["request"] > 0 %><p></p><% end %>
+    </ul>
+<% else %>
+    <p class="errors">Sorry, we coudn't find <%= params[:listing_type] %>s that match your search. Do you want to <a href="/<%= I18n.locale  %>/<%= params[:listing_type] %>s">view all the <%= params[:listing_type] %>s?</a></p>
+<% end %>

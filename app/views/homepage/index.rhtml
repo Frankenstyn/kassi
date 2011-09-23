@@ -11,11 +11,9 @@
 <% else %>
 <ul class="listings">
     <%= render :partial => "recent_listing", :collection => @requests + @offers, :as => :listing %>
-    <%- if (@requests.total_pages + @offers.total_pages) < 2 && @private_listings && @private_listings["request"].present? && @private_listings["request"] > 0 %>
-    <br/>
-    <% end %>
+    <%- if (@requests.total_pages + @offers.total_pages) < 2 && @private_listings && @private_listings["request"].present? && @private_listings["request"] > 0 %><p></p><% end %>
 </ul>
-<p><a href="/<%= I18n.locale  %>/requests">View all requests</a> | <a href="/<%= I18n.locale  %>/offers">View all offers</a></p>
+<p><a href="/<%= I18n.locale  %>/requests">View more requests</a> | <a href="/<%= I18n.locale  %>/offers">View more offers</a></p>
 <% if @requests.total_entries > 0 || @offers.total_entries > 0 %>
 <p><%= @requests.total_entries > @offers.total_entries ? will_paginate(@requests) : will_paginate(@offers) %></p>
 <% end %>
