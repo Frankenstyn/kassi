@@ -25,10 +25,10 @@
     </div>
 </li>
 <li>
-    <div class="image"><%= link_to image_tag("computers.png", :alt => "Computers Accessories"), :controller => "listings", :action => "load", :category => ["computers"], :listing_type => @title, :share_type => ["all"] %></div>
+    <div class="image"><%= link_to image_tag("computers.png", :alt => "Computers Accessories"), :controller => "listings", :action => "load", :category => ["computer"], :listing_type => @title, :share_type => ["all"] %></div>
     <div>
-        <p><%= link_to "Computers & Accessories", { :controller => "listings", :action => "load", :category => ["computers"], :listing_type => @title, :share_type => ["all"] }, :class => 'titl' %> &minus; Computers and accessories</p>
-        <p class="meta"><%= link_to "Add", { :controller => "listings", :action => "new", :category => "computers", :type => @title } %> | <%= link_to "View all", { :controller => "listings", :action => "load", :category => ["computers"], :listing_type => @title, :share_type => ["all"] } %></p>
+        <p><%= link_to "Computers & Accessories", { :controller => "listings", :action => "load", :category => ["computer"], :listing_type => @title, :share_type => ["all"] }, :class => 'titl' %> &minus; Computers and accessories</p>
+        <p class="meta"><%= link_to "Add", { :controller => "listings", :action => "new", :category => "computer", :type => @title } %> | <%= link_to "View all", { :controller => "listings", :action => "load", :category => ["computer"], :listing_type => @title, :share_type => ["all"] } %></p>
     </div>
 </li>
 <li>
